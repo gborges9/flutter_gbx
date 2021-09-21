@@ -2,6 +2,7 @@ import 'interfaces/dependency_injector.dart';
 import 'package:get/get.dart';
 
 class GetDependencyInjector extends IDependencyInjector {
+  const GetDependencyInjector() : super();
   @override
   T findDependency<T>({String? tag}) => Get.find<T>(tag: tag);
 
