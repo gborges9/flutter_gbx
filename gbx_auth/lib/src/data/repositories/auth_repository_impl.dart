@@ -1,28 +1,27 @@
-import 'package:farm_app/core/error/exceptions.dart';
-
 import 'package:dartz/dartz.dart';
-import 'package:farm_app/features/auth/data/datasources/user_data_local_data_source.dart';
-import 'package:farm_app/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:farm_app/features/auth/data/datasources/user_data_remote_data_source.dart';
-import 'package:farm_app/features/auth/data/models/user_model.dart';
-import 'package:farm_app/features/auth/domain/entities/user.dart';
+import 'package:gbx_auth/src/data/datasources/auth_remote_data_source.dart';
+import 'package:gbx_auth/src/data/datasources/user_data_local_data_source.dart';
+import 'package:gbx_auth/src/data/datasources/user_data_remote_data_source.dart';
+import 'package:gbx_auth/src/domain/entities/gbx_user.dart';
+import 'package:gbx_auth/src/domain/repositories/auth_repository.dart';
+import 'package:gbx_auth/src/errors/exceptions.dart';
+import 'package:gbx_auth/src/errors/failures.dart';
+import 'package:gbx_core/gbx_core.dart';
 
-import 'package:firebase_core/firebase_core.dart';
-
-class IAuthRepositoryImpl extends IAuthRepository {
+class IAuthRepositoryImpl<T extends GbxUser> extends IAuthRepository<T> {
   final AuthRemoteDataSource _authDataSource;
-  final UserDataRemoteDataSource _remoteDataSource;
-  final UserDataLocalDataSource _localDataSource;
+  final UserDataRemoteDataSource<T> _remoteDataSource;
+  final UserDataLocalDataSource<T> _localDataSource;
 
-  IAuthRepositoryImpl(
-      {required AuthRemoteDataSource authDataSource,
-      required UserDataLocalDataSource localDataSource,
-      required UserDataRemoteDataSource remoteDataSource})
-      : _remoteDataSource = remoteDataSource,
+  IAuthRepositoryImpl({
+    required AuthRemoteDataSource authDataSource,
+    required UserDataLocalDataSource<T> localDataSource,
+    required UserDataRemoteDataSource<T> remoteDataSource,
+  })  : _remoteDataSource = remoteDataSource,
         _localDataSource = localDataSource,
         _authDataSource = authDataSource;
 
-  Future<Either<Failure, T>> execute<T>(Future<T> Function() func) async {
+  Future<Either<IFailure, N>> execute<N>(Future<N> Function() func) async {
     try {
       var response = await func();
       return Right(response);
@@ -34,84 +33,79 @@ class IAuthRepositoryImpl extends IAuthRepository {
       return Left(IncompleteDataFailure());
     } on MissingDataException {
       return Left(MissingDataFailure());
-    } on FirebaseException catch (e) {
-      print("ERROR: ${e.code} - ${e.message}");
-      return Left(FirebaseFailure(e));
+    } on Exception catch (e) {
+      return Left(UnhandledException(e));
     }
   }
 
   @override
-  Future<Either<Failure, User>> getCurrentUser(bool forceRefresh) =>
+  Future<Either<IFailure, T>> getCurrentUser(bool forceRefresh) =>
       execute(() async {
-        var fbUser = await _authDataSource.getUser();
-        if (!forceRefresh)
-          return await _cachedOrServerUserData(fbUser.uid);
-        else
-          return await _remoteDataSource.getUserData(fbUser.uid);
+        var uid = await _authDataSource.getUser();
+        if (!forceRefresh) {
+          return await _cachedOrServerUserData(uid);
+        } else {
+          return await _remoteDataSource.getUserData(uid);
+        }
       });
 
   @override
-  Future<Either<Failure, User>> logInWithEmail(String email, String password) =>
+  Future<Either<IFailure, T>> logInWithEmail(String email, String password) =>
       execute(() async {
-        var fbUser = await _authDataSource.logInWithEmail(email, password);
-        return await _remoteDataSource.getUserData(fbUser.uid);
+        var uid = await _authDataSource.logInWithEmail(email, password);
+        return await _remoteDataSource.getUserData(uid);
       });
 
   @override
-  Future<Either<Failure, User>> signUpWithEmail(User user, String password) =>
+  Future<Either<IFailure, T>> signUpWithEmail(T user, String password) =>
       execute(() async {
-        print("Trying to sign up\nemail: ${user.email}\npassword: $password");
-        var fbUser =
-            await _authDataSource.signUpWithEmail(user.email, password);
-        await _remoteDataSource.updateUserData(
-            fbUser.uid, UserModel.from(user));
+        var uid = await _authDataSource.signUpWithEmail(user.email, password);
+        await _remoteDataSource.updateUserData(uid, user);
 
-        return await _cachedOrServerUserData(fbUser.uid);
+        return await _cachedOrServerUserData(uid);
       });
 
   @override
-  Future<Either<Failure, User>> updateUser(User newUser) => execute(() async {
-        var fbUser = await _authDataSource.getUser();
-        await _remoteDataSource.updateUserData(
-            fbUser.uid, UserModel.from(newUser));
-        return await _localDataSource.getCachedUser(fbUser.uid);
+  Future<Either<IFailure, T>> updateUser(T newUser) => execute(() async {
+        var uid = await _authDataSource.getUser();
+        await _remoteDataSource.updateUserData(uid, newUser);
+        return await _localDataSource.getCachedUser(uid);
       });
 
   @override
-  Future<Either<Failure, void>> resetPasswordRequest(String email) =>
+  Future<Either<IFailure, void>> resetPasswordRequest(String email) =>
       execute(() => _authDataSource.changePasswordRequest(email));
 
   @override
-  Future<Either<Failure, String>> resetPasswordVerifyCode(String code) =>
+  Future<Either<IFailure, String>> resetPasswordVerifyCode(String code) =>
       execute(() => _authDataSource.verifyPasswordResetCode(code));
 
   @override
-  Future<Either<Failure, void>> resetPasswordConfirm(
+  Future<Either<IFailure, void>> resetPasswordConfirm(
           String code, String newPassword) =>
       execute(() => _authDataSource.changePassword(code, newPassword));
 
-  Future<User> _cachedOrServerUserData(String uid) async {
+  Future<T> _cachedOrServerUserData(String uid) async {
     try {
       return await _localDataSource.getCachedUser(uid);
     } catch (e) {
-      print("USER NOT AVAILABLE IN CACHE: $e");
       return await _remoteDataSource.getUserData(uid);
     }
   }
 
   @override
-  Future<Either<Failure, bool>> backgroundLogin() => execute(() async {
+  Future<Either<IFailure, bool>> backgroundLogin() => execute(() async {
         await _authDataSource.backgroundLogin();
         return true;
       });
 
   @override
-  Future<Either<Failure, String>> isLoggedIn() => execute(() async {
-        return (await _authDataSource.getUser()).uid;
+  Future<Either<IFailure, String>> isLoggedIn() => execute(() async {
+        return (await _authDataSource.getUser());
       });
 
   @override
-  Future<Either<Failure, void>> logOut() => execute(() async {
-        return this._authDataSource.logOut();
+  Future<Either<IFailure, void>> logOut() => execute(() async {
+        return _authDataSource.logOut();
       });
 }

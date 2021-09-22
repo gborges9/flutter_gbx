@@ -10,6 +10,7 @@ export 'package:gbx_core/src/extensions/index.dart';
 export 'package:gbx_core/src/interfaces/index.dart';
 export 'package:gbx_core/src/modules/index.dart';
 export 'package:gbx_core/src/utils/index.dart';
+export 'package:gbx_core/src/errors/index.dart';
 
 class _GbxImpl extends GbxInterface {}
 

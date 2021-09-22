@@ -1,5 +1,7 @@
 /// [AuthRemoteDataSource] to Handle authentication.
 abstract class AuthRemoteDataSource {
+  const AuthRemoteDataSource();
+
   /// Get the current user id from the server.
   ///
   /// Throws [UserNotLoggedInException] if the user is not logged in.
