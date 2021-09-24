@@ -13,4 +13,9 @@ class GetDependencyInjector extends IDependencyInjector {
   @override
   void lazyInject<T>(T Function() getter, {bool fenix = false, String? tag}) =>
       Get.lazyPut(getter, fenix: fenix, tag: tag);
+
+  @override
+  bool isRegistered<T>() {
+    return Get.isRegistered<T>();
+  }
 }
