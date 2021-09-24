@@ -1,6 +1,6 @@
 /// [AuthRemoteDataSource] to Handle authentication.
-abstract class AuthRemoteDataSource {
-  const AuthRemoteDataSource();
+abstract class IAuthRemoteDataSource {
+  const IAuthRemoteDataSource();
 
   /// Get the current user id from the server.
   ///

@@ -1,10 +1,10 @@
 import 'package:gbx_auth/src/data/models/gbx_user_serializer.dart';
 import 'package:gbx_auth/src/domain/entities/gbx_user.dart';
 
-abstract class UserDataRemoteDataSource<T extends GbxUser> {
+abstract class IUserDataRemoteDataSource<T extends GbxUser> {
   final IGbxUserSerializer<T> serializer;
 
-  const UserDataRemoteDataSource(this.serializer);
+  const IUserDataRemoteDataSource(this.serializer);
 
   /// Gets the [UserModel] from the database.
   ///

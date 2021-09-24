@@ -8,15 +8,15 @@ import 'package:gbx_auth/src/errors/exceptions.dart';
 import 'package:gbx_auth/src/errors/failures.dart';
 import 'package:gbx_core/gbx_core.dart';
 
-class IAuthRepositoryImpl<T extends GbxUser> extends IAuthRepository<T> {
-  final AuthRemoteDataSource _authDataSource;
-  final UserDataRemoteDataSource<T> _remoteDataSource;
-  final UserDataLocalDataSource<T> _localDataSource;
+class AuthRepositoryImpl<T extends GbxUser> extends IAuthRepository<T> {
+  final IAuthRemoteDataSource _authDataSource;
+  final IUserDataRemoteDataSource<T> _remoteDataSource;
+  final IUserDataLocalDataSource<T> _localDataSource;
 
-  IAuthRepositoryImpl({
-    required AuthRemoteDataSource authDataSource,
-    required UserDataLocalDataSource<T> localDataSource,
-    required UserDataRemoteDataSource<T> remoteDataSource,
+  AuthRepositoryImpl({
+    required IAuthRemoteDataSource authDataSource,
+    required IUserDataLocalDataSource<T> localDataSource,
+    required IUserDataRemoteDataSource<T> remoteDataSource,
   })  : _remoteDataSource = remoteDataSource,
         _localDataSource = localDataSource,
         _authDataSource = authDataSource;

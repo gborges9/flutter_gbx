@@ -6,4 +6,6 @@ abstract class IDependencyInjector {
   void lazyInject<T>(T Function() getter, {bool fenix = false, String? tag});
 
   T findDependency<T>({String? tag});
+
+  bool isRegistered<T>();
 }
