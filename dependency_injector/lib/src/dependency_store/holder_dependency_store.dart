@@ -1,5 +1,5 @@
-import 'package:dependency_injector/src/dependency_store/types.dart';
-import 'package:dependency_injector/src/exceptions.dart';
+import 'package:gbx_di/src/dependency_store/types.dart';
+import 'package:gbx_di/src/exceptions.dart';
 
 import 'dependency_store.dart';
 import 'dependency_store_factory.dart';

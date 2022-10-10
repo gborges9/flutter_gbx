@@ -1,8 +1,5 @@
-import 'package:dependency_injector/dependency_injector.dart';
-import 'package:dependency_injector/src/dependencies/bloc_dependencies.dart';
-import 'package:dependency_injector/src/dependencies/dependencies.dart';
-import 'package:dependency_injector/src/dependency_provider/dependency_provider.dart';
-import 'package:dependency_injector/src/dependency_store/dependency_store_factory.dart';
+import 'package:gbx_di/dependency_injector.dart';
+import 'package:gbx_di/src/dependency_store/dependency_store_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

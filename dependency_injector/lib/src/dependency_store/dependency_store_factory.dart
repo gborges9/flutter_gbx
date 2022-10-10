@@ -1,6 +1,6 @@
-import 'package:dependency_injector/dependency_injector.dart';
-import 'package:dependency_injector/src/dependency_store/get_it_dependency_store.dart';
-import 'package:dependency_injector/src/exceptions.dart';
+import 'package:gbx_di/dependency_injector.dart';
+import 'package:gbx_di/src/dependency_store/get_it_dependency_store.dart';
+import 'package:gbx_di/src/exceptions.dart';
 
 enum DIOption {
   getIt,
