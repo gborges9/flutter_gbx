@@ -1,4 +1,4 @@
-import 'package:gbx_di/dependency_injector.dart';
+import 'package:gbx_di/gbx_di.dart';
 import 'package:gbx_di/src/dependency_store/dependency_store_factory.dart';
 import 'package:flutter/material.dart';
 

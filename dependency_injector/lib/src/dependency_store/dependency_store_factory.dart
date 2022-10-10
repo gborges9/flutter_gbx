@@ -1,4 +1,4 @@
-import 'package:gbx_di/dependency_injector.dart';
+import 'package:gbx_di/gbx_di.dart';
 import 'package:gbx_di/src/dependency_store/get_it_dependency_store.dart';
 import 'package:gbx_di/src/exceptions.dart';
 
