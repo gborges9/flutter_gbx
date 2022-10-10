@@ -1,4 +1,4 @@
-library dependency_injector;
+library gbx_di;
 
 export 'package:gbx_di/src/dependencies/bloc_dependencies.dart';
 export 'package:gbx_di/src/dependencies/dependencies.dart';
