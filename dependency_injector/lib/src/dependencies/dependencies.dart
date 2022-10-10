@@ -7,5 +7,6 @@ typedef BlocBuilder = StateStreamableSource<Object?> Function(
     BuildContext context);
 
 abstract class Dependencies {
+  const Dependencies();
   Future<void> inject();
 }
