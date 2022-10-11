@@ -10,6 +10,9 @@ class BlocDependencyProvider extends StatelessWidget {
   final Widget? onLoading;
   final IDependencyStore? customStore;
 
+  /// Set to true if you want to call the builder method even when dependencies are still loading.
+  final bool loadingOptimized;
+
   const BlocDependencyProvider({
     super.key,
     required this.dependencies,
@@ -17,6 +20,7 @@ class BlocDependencyProvider extends StatelessWidget {
     this.customStore,
     this.diOption,
     this.onLoading,
+    this.loadingOptimized = false,
   }) : assert(diOption == null || customStore == null,
             "You can't provide a diOption and a custom store at the same time!");
 
@@ -29,7 +33,11 @@ class BlocDependencyProvider extends StatelessWidget {
       }
     }
 
-    return MultiBlocProvider(providers: providers, child: builder(context));
+    if (providers.isNotEmpty) {
+      return MultiBlocProvider(providers: providers, child: builder(context));
+    }
+
+    return builder(context);
   }
 
   @override
@@ -40,6 +48,7 @@ class BlocDependencyProvider extends StatelessWidget {
       customStore: customStore,
       diOption: diOption,
       onLoading: onLoading,
+      loadingOptimized: loadingOptimized,
     );
   }
 }

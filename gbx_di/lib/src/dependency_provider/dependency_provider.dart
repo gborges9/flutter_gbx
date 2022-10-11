@@ -9,6 +9,9 @@ class DependencyProvider extends StatelessWidget {
   final Widget? onLoading;
   final IDependencyStore? customStore;
 
+  /// Set to true if you want to call the builder method even when dependencies are still loading.
+  final bool loadingOptimized;
+
   const DependencyProvider({
     super.key,
     required this.dependencies,
@@ -16,6 +19,7 @@ class DependencyProvider extends StatelessWidget {
     this.diOption,
     this.onLoading,
     this.customStore,
+    this.loadingOptimized = false,
   }) : assert(diOption == null || customStore == null,
             "You can't provide a diOption and a custom store at the same time!");
 
@@ -42,7 +46,7 @@ class DependencyProvider extends StatelessWidget {
   }
 
   Widget buildWidget(BuildContext context, AsyncSnapshot<bool> snapshot) {
-    if (snapshot.hasData && snapshot.requireData) {
+    if (loadingOptimized || (snapshot.hasData && snapshot.requireData)) {
       return builder(context);
     }
     return onLoading ?? const SizedBox();

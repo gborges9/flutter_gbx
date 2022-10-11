@@ -14,31 +14,39 @@ class TalkerLoggerImpl extends ILogger {
 
   @override
   void d(message, {error, StackTrace? stackTrace, Type? type}) {
-    _talker.debug(message, error, stackTrace);
+    _talker.debug(_typedMessage(message, type), error, stackTrace);
   }
 
   @override
   void e(message, {error, StackTrace? stackTrace, Type? type}) {
-    _talker.error(message, error, stackTrace);
+    _talker.error(_typedMessage(message, type), error, stackTrace);
   }
 
   @override
   void i(message, {error, StackTrace? stackTrace, Type? type}) {
-    _talker.info(message, error, stackTrace);
+    _talker.info(_typedMessage(message, type), error, stackTrace);
   }
 
   @override
   void v(message, {error, StackTrace? stackTrace, Type? type}) {
-    _talker.verbose(message, error, stackTrace);
+    _talker.verbose(_typedMessage(message, type), error, stackTrace);
   }
 
   @override
   void w(message, {error, StackTrace? stackTrace, Type? type}) {
-    _talker.warning(message, error, stackTrace);
+    _talker.warning(_typedMessage(message, type), error, stackTrace);
   }
 
   @override
   void wtf(message, {error, StackTrace? stackTrace, Type? type}) {
-    _talker.critical(message, error, stackTrace);
+    _talker.critical(_typedMessage(message, type), error, stackTrace);
+  }
+
+  String? _typedMessage(message, Type? type) {
+    String msg = "$message";
+    if (type != null) {
+      msg = "[$type] $msg";
+    }
+    return msg;
   }
 }
