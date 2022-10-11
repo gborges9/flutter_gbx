@@ -10,11 +10,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  talker: ^2.0.0+1
+  freezed_annotation: ^2.1.0
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
+  build_runner:  
+  freezed: ^2.1.0+1
+  json_serializable:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
