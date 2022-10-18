@@ -7,11 +7,3 @@ abstract class RemoteDataEvent {
 class InitializeRemoteData extends RemoteDataEvent {
   const InitializeRemoteData();
 }
-
-class RefreshRemoteData extends RemoteDataEvent {
-  const RefreshRemoteData();
-}
-
-class CleanRemoteData extends RemoteDataEvent {
-  const CleanRemoteData();
-}

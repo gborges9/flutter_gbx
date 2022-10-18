@@ -44,11 +44,6 @@ class RemoteDataLoaded<T> extends InitializedRemoteDataState<T> {
   RemoteDataLoaded(super.data);
 }
 
-class RemoteDataRefreshing<T> extends InitializedRemoteDataState<T>
-    implements LoadingState {
-  RemoteDataRefreshing(super.data);
-}
-
 // ###########################
 //    Temporary States
 // ###########################
