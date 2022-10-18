@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../domain/bloc/bloc_state.dart';
 import '../remote_data_bloc.dart';
 
-/// A Mixin for refreshable [RemoteDataBloc]s.
+/// A Mixin for [RemoteDataBloc]s where you can set the data.
 ///
-/// Use it if you need to refresh the data of your bloc.
+/// Use it if you need to set the data of your bloc.
 mixin SettableData<T, E extends SetRemoteData<T>> on RemoteDataBloc<T> {
   @override
   void declareEvents() {
