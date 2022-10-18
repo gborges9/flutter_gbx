@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gbx_core/gbx_core.dart';
 
-import '../../domain/bloc/bloc_state.dart';
-import '../blocs/remote_data/remote_data_bloc.dart';
-
-class RemoteDataBlocBuilder<B extends StateStreamable<S>,
+class RemoteDataBlocBuilder<B extends RemoteDataBloc,
     S extends RemoteDataState<T>, T> extends StatelessWidget {
   const RemoteDataBlocBuilder({
     this.bloc,
@@ -21,7 +19,7 @@ class RemoteDataBlocBuilder<B extends StateStreamable<S>,
     this.initializeOnStart = false,
   });
 
-  final RemoteDataBloc<S>? bloc;
+  final B? bloc;
   final BlocWidgetBuilder<S> builder;
   final BlocWidgetBuilder<RemoteDataLoaded<T>>? loadedBuilder;
   final BlocWidgetBuilder<RemoteDataLoading<T>>? loadingBuilder;
@@ -36,7 +34,13 @@ class RemoteDataBlocBuilder<B extends StateStreamable<S>,
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<B, S>(
+    final bloc = this.bloc ?? BlocProvider.of<B>(context);
+    if (initializeOnStart && bloc.state is RemoteDataUninitialized) {
+      Log.i("Initializing $B");
+      (bloc).add(const InitializeRemoteData());
+    }
+    return BlocConsumer<StateStreamable<S>, S>(
+      bloc: bloc as StateStreamable<S>,
       builder: (context, state) {
         if (state is RemoteDataUninitialized<T>) {
           return uninitializedBuilder?.call(context, state) ??
@@ -62,19 +66,16 @@ class RemoteDataBlocBuilder<B extends StateStreamable<S>,
       listenWhen: (previous, current) =>
           current is TemporaryState || current is RemoteDataUninitialized,
       listener: (context, state) {
+        Log.v("GOT STATE AT BUILDER ${state.runtimeType}", type: runtimeType);
         if (state is RemoteDataLoadingTemporaryFail<T>) {
           onError?.call(context, state);
         }
         if (state is RemoteDataLoadingTemporarySuccess<T>) {
           onSuccess?.call(context, state);
         }
-        if (initializeOnStart && state is RemoteDataUninitialized<T>) {
-          return bloc?.add(const InitializeRemoteData());
-        }
 
         listener?.call(context, state);
       },
-      bloc: bloc as B?,
     );
   }
 }

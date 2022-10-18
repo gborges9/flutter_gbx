@@ -1,17 +1,17 @@
 part of 'remote_data_bloc.dart';
 
-abstract class RemoteDataEvent<T> {
+abstract class RemoteDataEvent {
   const RemoteDataEvent();
 }
 
-class InitializeRemoteData<T> extends RemoteDataEvent<T> {
+class InitializeRemoteData extends RemoteDataEvent {
   const InitializeRemoteData();
 }
 
-class RefreshRemoteData<T> extends RemoteDataEvent<T> {
+class RefreshRemoteData extends RemoteDataEvent {
   const RefreshRemoteData();
 }
 
-class CleanRemoteData<T> extends RemoteDataEvent<T> {
+class CleanRemoteData extends RemoteDataEvent {
   const CleanRemoteData();
 }

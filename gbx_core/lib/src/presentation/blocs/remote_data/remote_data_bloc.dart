@@ -8,38 +8,36 @@ part 'remote_data_event.dart';
 part 'remote_data_state.dart';
 
 abstract class RemoteDataBloc<T>
-    extends Bloc<RemoteDataEvent<T>, RemoteDataState<T>>
-    with BlocHelper
-    implements StateStreamable<RemoteDataState<T>> {
+    extends Bloc<RemoteDataEvent, RemoteDataState<T>> with BlocHelper {
   RemoteDataBloc() : super(const RemoteDataUninitialized()) {
-    conditionalOn<InitializeRemoteData<T>>(
+    conditionalOn<InitializeRemoteData>(
       handler: handleInitializeData,
       conditional: canInitialize,
     );
-    conditionalOn<RefreshRemoteData<T>>(
+    conditionalOn<RefreshRemoteData>(
       handler: handleRefreshData,
       conditional: canRefresh,
     );
-    conditionalOn<CleanRemoteData<T>>(
+    conditionalOn<CleanRemoteData>(
       handler: handleCleanData,
       conditional: canClean,
     );
   }
 
-  bool canInitialize(InitializeRemoteData<T> event, RemoteDataState<T> state) {
+  bool canInitialize(InitializeRemoteData event, RemoteDataState<T> state) {
     return state is RemoteDataUninitialized;
   }
 
-  bool canRefresh(RefreshRemoteData<T> event, RemoteDataState<T> state) {
+  bool canRefresh(RefreshRemoteData event, RemoteDataState<T> state) {
     return state is RemoteDataLoaded<T>;
   }
 
-  bool canClean(CleanRemoteData<T> event, RemoteDataState<T> state) {
+  bool canClean(CleanRemoteData event, RemoteDataState<T> state) {
     return state is RemoteDataLoaded<T>;
   }
 
   Future<void> handleInitializeData(
-    InitializeRemoteData<T> event,
+    InitializeRemoteData event,
     Emitter<RemoteDataState<T>> emit,
   ) async {
     emit(getLoadingState(event));
@@ -53,7 +51,7 @@ abstract class RemoteDataBloc<T>
   }
 
   Future<void> handleRefreshData(
-    RefreshRemoteData<T> event,
+    RefreshRemoteData event,
     Emitter<RemoteDataState<T>> emit,
   ) async {
     final state = this.state as InitializedRemoteDataState<T>;
@@ -74,31 +72,30 @@ abstract class RemoteDataBloc<T>
   }
 
   Future<void> handleCleanData(
-    CleanRemoteData<T> event,
+    CleanRemoteData event,
     Emitter<RemoteDataState<T>> emit,
   ) async {
     emit(const RemoteDataUninitialized());
   }
 
   /// Fetches the data for the Bloc
-  FutureOr<T> fetchData(RemoteDataEvent<T> event);
+  FutureOr<T> fetchData(RemoteDataEvent event);
 
-  RemoteDataLoading<T> getLoadingState(RemoteDataEvent<T> event) =>
+  RemoteDataLoading<T> getLoadingState(RemoteDataEvent event) =>
       const RemoteDataLoading();
-  RemoteDataLoaded<T> getLoadedState(RemoteDataEvent<T> event, T data) =>
+  RemoteDataLoaded<T> getLoadedState(RemoteDataEvent event, T data) =>
       RemoteDataLoaded(data);
-  RemoteDataRefreshing<T> getRefreshingState(
-          RemoteDataEvent<T> event, T data) =>
+  RemoteDataRefreshing<T> getRefreshingState(RemoteDataEvent event, T data) =>
       RemoteDataRefreshing(data);
-  RemoteDataLoadingFailed<T> getLoadingErrorState(RemoteDataEvent<T> event,
+  RemoteDataLoadingFailed<T> getLoadingErrorState(RemoteDataEvent event,
           {dynamic error, StackTrace? stackTrace}) =>
       RemoteDataLoadingFailed(error: error, stackTrace: stackTrace);
 
   RemoteDataLoadingTemporarySuccess<T> getLoadingTemporarySuccessState(
-          RemoteDataEvent<T> event, T data) =>
+          RemoteDataEvent event, T data) =>
       RemoteDataLoadingTemporarySuccess(data);
   RemoteDataLoadingTemporaryFail<T> getLoadingTemporaryFailState(
-          RemoteDataEvent<T> event, T data,
+          RemoteDataEvent event, T data,
           {dynamic error, StackTrace? trace}) =>
       RemoteDataLoadingTemporaryFail(data, error: error, stackTrace: trace);
 }

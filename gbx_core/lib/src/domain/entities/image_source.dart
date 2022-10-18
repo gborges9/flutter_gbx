@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gbx_core/src/domain/entities/image_source_type.dart';
 
@@ -12,6 +13,11 @@ class ImageSource with _$ImageSource {
   const factory ImageSource.asset(String path) = AssetImageSource;
   @ImageSourceConverter()
   const factory ImageSource.network(String url) = NetworkImageSource;
+
+  ImageProvider asProvider() {
+    return when(
+        asset: (path) => AssetImage(path), network: (url) => NetworkImage(url));
+  }
 
   factory ImageSource.fromJson(Map<String, dynamic> json) =>
       _$ImageSourceFromJson(json);
