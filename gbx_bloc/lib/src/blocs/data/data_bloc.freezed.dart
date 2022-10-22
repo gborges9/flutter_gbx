@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'remote_data_bloc.dart';
+part of 'data_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$RemoteDataState<T> {
+mixin _$DataState<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() uninitialized,
@@ -28,12 +28,12 @@ mixin _$RemoteDataState<T> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? uninitialized,
-    TResult Function(T? data, LoadingType loadingType)? loading,
-    TResult Function(T? data, dynamic error, StackTrace? stackTrace,
+    TResult? Function()? uninitialized,
+    TResult? Function(T? data, LoadingType loadingType)? loading,
+    TResult? Function(T? data, dynamic error, StackTrace? stackTrace,
             LoadingType loadingType, dynamic temporary)?
         error,
-    TResult Function(T data, bool firstTimeLoaded)? loaded,
+    TResult? Function(T data, bool firstTimeLoaded)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -49,87 +49,80 @@ mixin _$RemoteDataState<T> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UninitializedRemoteDataState<T> value)
-        uninitialized,
-    required TResult Function(LoadingRemoteDataState<T> value) loading,
-    required TResult Function(ErrorRemoteDataState<T> value) error,
-    required TResult Function(LoadedRemoteDataState<T> value) loaded,
+    required TResult Function(UninitializedDataState<T> value) uninitialized,
+    required TResult Function(LoadingDataState<T> value) loading,
+    required TResult Function(ErrorDataState<T> value) error,
+    required TResult Function(LoadedDataState<T> value) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UninitializedRemoteDataState<T> value)? uninitialized,
-    TResult Function(LoadingRemoteDataState<T> value)? loading,
-    TResult Function(ErrorRemoteDataState<T> value)? error,
-    TResult Function(LoadedRemoteDataState<T> value)? loaded,
+    TResult? Function(UninitializedDataState<T> value)? uninitialized,
+    TResult? Function(LoadingDataState<T> value)? loading,
+    TResult? Function(ErrorDataState<T> value)? error,
+    TResult? Function(LoadedDataState<T> value)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UninitializedRemoteDataState<T> value)? uninitialized,
-    TResult Function(LoadingRemoteDataState<T> value)? loading,
-    TResult Function(ErrorRemoteDataState<T> value)? error,
-    TResult Function(LoadedRemoteDataState<T> value)? loaded,
+    TResult Function(UninitializedDataState<T> value)? uninitialized,
+    TResult Function(LoadingDataState<T> value)? loading,
+    TResult Function(ErrorDataState<T> value)? error,
+    TResult Function(LoadedDataState<T> value)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RemoteDataStateCopyWith<T, $Res> {
-  factory $RemoteDataStateCopyWith(
-          RemoteDataState<T> value, $Res Function(RemoteDataState<T>) then) =
-      _$RemoteDataStateCopyWithImpl<T, $Res>;
+abstract class $DataStateCopyWith<T, $Res> {
+  factory $DataStateCopyWith(
+          DataState<T> value, $Res Function(DataState<T>) then) =
+      _$DataStateCopyWithImpl<T, $Res, DataState<T>>;
 }
 
 /// @nodoc
-class _$RemoteDataStateCopyWithImpl<T, $Res>
-    implements $RemoteDataStateCopyWith<T, $Res> {
-  _$RemoteDataStateCopyWithImpl(this._value, this._then);
+class _$DataStateCopyWithImpl<T, $Res, $Val extends DataState<T>>
+    implements $DataStateCopyWith<T, $Res> {
+  _$DataStateCopyWithImpl(this._value, this._then);
 
-  final RemoteDataState<T> _value;
   // ignore: unused_field
-  final $Res Function(RemoteDataState<T>) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class _$$UninitializedRemoteDataStateCopyWith<T, $Res> {
-  factory _$$UninitializedRemoteDataStateCopyWith(
-          _$UninitializedRemoteDataState<T> value,
-          $Res Function(_$UninitializedRemoteDataState<T>) then) =
-      __$$UninitializedRemoteDataStateCopyWithImpl<T, $Res>;
+abstract class _$$UninitializedDataStateCopyWith<T, $Res> {
+  factory _$$UninitializedDataStateCopyWith(_$UninitializedDataState<T> value,
+          $Res Function(_$UninitializedDataState<T>) then) =
+      __$$UninitializedDataStateCopyWithImpl<T, $Res>;
 }
 
 /// @nodoc
-class __$$UninitializedRemoteDataStateCopyWithImpl<T, $Res>
-    extends _$RemoteDataStateCopyWithImpl<T, $Res>
-    implements _$$UninitializedRemoteDataStateCopyWith<T, $Res> {
-  __$$UninitializedRemoteDataStateCopyWithImpl(
-      _$UninitializedRemoteDataState<T> _value,
-      $Res Function(_$UninitializedRemoteDataState<T>) _then)
-      : super(_value, (v) => _then(v as _$UninitializedRemoteDataState<T>));
-
-  @override
-  _$UninitializedRemoteDataState<T> get _value =>
-      super._value as _$UninitializedRemoteDataState<T>;
+class __$$UninitializedDataStateCopyWithImpl<T, $Res>
+    extends _$DataStateCopyWithImpl<T, $Res, _$UninitializedDataState<T>>
+    implements _$$UninitializedDataStateCopyWith<T, $Res> {
+  __$$UninitializedDataStateCopyWithImpl(_$UninitializedDataState<T> _value,
+      $Res Function(_$UninitializedDataState<T>) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$UninitializedRemoteDataState<T>
-    extends UninitializedRemoteDataState<T> {
-  const _$UninitializedRemoteDataState() : super._();
+class _$UninitializedDataState<T> extends UninitializedDataState<T> {
+  const _$UninitializedDataState() : super._();
 
   @override
   String toString() {
-    return 'RemoteDataState<$T>.uninitialized()';
+    return 'DataState<$T>.uninitialized()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UninitializedRemoteDataState<T>);
+            other is _$UninitializedDataState<T>);
   }
 
   @override
@@ -151,12 +144,12 @@ class _$UninitializedRemoteDataState<T>
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? uninitialized,
-    TResult Function(T? data, LoadingType loadingType)? loading,
-    TResult Function(T? data, dynamic error, StackTrace? stackTrace,
+    TResult? Function()? uninitialized,
+    TResult? Function(T? data, LoadingType loadingType)? loading,
+    TResult? Function(T? data, dynamic error, StackTrace? stackTrace,
             LoadingType loadingType, dynamic temporary)?
         error,
-    TResult Function(T data, bool firstTimeLoaded)? loaded,
+    TResult? Function(T data, bool firstTimeLoaded)? loaded,
   }) {
     return uninitialized?.call();
   }
@@ -181,11 +174,10 @@ class _$UninitializedRemoteDataState<T>
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UninitializedRemoteDataState<T> value)
-        uninitialized,
-    required TResult Function(LoadingRemoteDataState<T> value) loading,
-    required TResult Function(ErrorRemoteDataState<T> value) error,
-    required TResult Function(LoadedRemoteDataState<T> value) loaded,
+    required TResult Function(UninitializedDataState<T> value) uninitialized,
+    required TResult Function(LoadingDataState<T> value) loading,
+    required TResult Function(ErrorDataState<T> value) error,
+    required TResult Function(LoadedDataState<T> value) loaded,
   }) {
     return uninitialized(this);
   }
@@ -193,10 +185,10 @@ class _$UninitializedRemoteDataState<T>
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UninitializedRemoteDataState<T> value)? uninitialized,
-    TResult Function(LoadingRemoteDataState<T> value)? loading,
-    TResult Function(ErrorRemoteDataState<T> value)? error,
-    TResult Function(LoadedRemoteDataState<T> value)? loaded,
+    TResult? Function(UninitializedDataState<T> value)? uninitialized,
+    TResult? Function(LoadingDataState<T> value)? loading,
+    TResult? Function(ErrorDataState<T> value)? error,
+    TResult? Function(LoadedDataState<T> value)? loaded,
   }) {
     return uninitialized?.call(this);
   }
@@ -204,10 +196,10 @@ class _$UninitializedRemoteDataState<T>
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UninitializedRemoteDataState<T> value)? uninitialized,
-    TResult Function(LoadingRemoteDataState<T> value)? loading,
-    TResult Function(ErrorRemoteDataState<T> value)? error,
-    TResult Function(LoadedRemoteDataState<T> value)? loaded,
+    TResult Function(UninitializedDataState<T> value)? uninitialized,
+    TResult Function(LoadingDataState<T> value)? loading,
+    TResult Function(ErrorDataState<T> value)? error,
+    TResult Function(LoadedDataState<T> value)? loaded,
     required TResult orElse(),
   }) {
     if (uninitialized != null) {
@@ -217,44 +209,41 @@ class _$UninitializedRemoteDataState<T>
   }
 }
 
-abstract class UninitializedRemoteDataState<T> extends RemoteDataState<T>
+abstract class UninitializedDataState<T> extends DataState<T>
     implements IUninitialiazedState {
-  const factory UninitializedRemoteDataState() =
-      _$UninitializedRemoteDataState<T>;
-  const UninitializedRemoteDataState._() : super._();
+  const factory UninitializedDataState() = _$UninitializedDataState<T>;
+  const UninitializedDataState._() : super._();
 }
 
 /// @nodoc
-abstract class _$$LoadingRemoteDataStateCopyWith<T, $Res> {
-  factory _$$LoadingRemoteDataStateCopyWith(_$LoadingRemoteDataState<T> value,
-          $Res Function(_$LoadingRemoteDataState<T>) then) =
-      __$$LoadingRemoteDataStateCopyWithImpl<T, $Res>;
+abstract class _$$LoadingDataStateCopyWith<T, $Res> {
+  factory _$$LoadingDataStateCopyWith(_$LoadingDataState<T> value,
+          $Res Function(_$LoadingDataState<T>) then) =
+      __$$LoadingDataStateCopyWithImpl<T, $Res>;
+  @useResult
   $Res call({T? data, LoadingType loadingType});
 }
 
 /// @nodoc
-class __$$LoadingRemoteDataStateCopyWithImpl<T, $Res>
-    extends _$RemoteDataStateCopyWithImpl<T, $Res>
-    implements _$$LoadingRemoteDataStateCopyWith<T, $Res> {
-  __$$LoadingRemoteDataStateCopyWithImpl(_$LoadingRemoteDataState<T> _value,
-      $Res Function(_$LoadingRemoteDataState<T>) _then)
-      : super(_value, (v) => _then(v as _$LoadingRemoteDataState<T>));
+class __$$LoadingDataStateCopyWithImpl<T, $Res>
+    extends _$DataStateCopyWithImpl<T, $Res, _$LoadingDataState<T>>
+    implements _$$LoadingDataStateCopyWith<T, $Res> {
+  __$$LoadingDataStateCopyWithImpl(
+      _$LoadingDataState<T> _value, $Res Function(_$LoadingDataState<T>) _then)
+      : super(_value, _then);
 
-  @override
-  _$LoadingRemoteDataState<T> get _value =>
-      super._value as _$LoadingRemoteDataState<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? data = freezed,
-    Object? loadingType = freezed,
+    Object? loadingType = null,
   }) {
-    return _then(_$LoadingRemoteDataState<T>(
-      data: data == freezed
+    return _then(_$LoadingDataState<T>(
+      data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T?,
-      loadingType: loadingType == freezed
+      loadingType: null == loadingType
           ? _value.loadingType
           : loadingType // ignore: cast_nullable_to_non_nullable
               as LoadingType,
@@ -264,9 +253,8 @@ class __$$LoadingRemoteDataStateCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$LoadingRemoteDataState<T> extends LoadingRemoteDataState<T> {
-  _$LoadingRemoteDataState(
-      {this.data, this.loadingType = LoadingType.initializing})
+class _$LoadingDataState<T> extends LoadingDataState<T> {
+  _$LoadingDataState({this.data, this.loadingType = LoadingType.initializing})
       : super._();
 
   @override
@@ -277,30 +265,29 @@ class _$LoadingRemoteDataState<T> extends LoadingRemoteDataState<T> {
 
   @override
   String toString() {
-    return 'RemoteDataState<$T>.loading(data: $data, loadingType: $loadingType)';
+    return 'DataState<$T>.loading(data: $data, loadingType: $loadingType)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoadingRemoteDataState<T> &&
+            other is _$LoadingDataState<T> &&
             const DeepCollectionEquality().equals(other.data, data) &&
-            const DeepCollectionEquality()
-                .equals(other.loadingType, loadingType));
+            (identical(other.loadingType, loadingType) ||
+                other.loadingType == loadingType));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(data),
-      const DeepCollectionEquality().hash(loadingType));
+      runtimeType, const DeepCollectionEquality().hash(data), loadingType);
 
   @JsonKey(ignore: true)
   @override
-  _$$LoadingRemoteDataStateCopyWith<T, _$LoadingRemoteDataState<T>>
-      get copyWith => __$$LoadingRemoteDataStateCopyWithImpl<T,
-          _$LoadingRemoteDataState<T>>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$LoadingDataStateCopyWith<T, _$LoadingDataState<T>> get copyWith =>
+      __$$LoadingDataStateCopyWithImpl<T, _$LoadingDataState<T>>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -318,12 +305,12 @@ class _$LoadingRemoteDataState<T> extends LoadingRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? uninitialized,
-    TResult Function(T? data, LoadingType loadingType)? loading,
-    TResult Function(T? data, dynamic error, StackTrace? stackTrace,
+    TResult? Function()? uninitialized,
+    TResult? Function(T? data, LoadingType loadingType)? loading,
+    TResult? Function(T? data, dynamic error, StackTrace? stackTrace,
             LoadingType loadingType, dynamic temporary)?
         error,
-    TResult Function(T data, bool firstTimeLoaded)? loaded,
+    TResult? Function(T data, bool firstTimeLoaded)? loaded,
   }) {
     return loading?.call(data, loadingType);
   }
@@ -348,11 +335,10 @@ class _$LoadingRemoteDataState<T> extends LoadingRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UninitializedRemoteDataState<T> value)
-        uninitialized,
-    required TResult Function(LoadingRemoteDataState<T> value) loading,
-    required TResult Function(ErrorRemoteDataState<T> value) error,
-    required TResult Function(LoadedRemoteDataState<T> value) loaded,
+    required TResult Function(UninitializedDataState<T> value) uninitialized,
+    required TResult Function(LoadingDataState<T> value) loading,
+    required TResult Function(ErrorDataState<T> value) error,
+    required TResult Function(LoadedDataState<T> value) loaded,
   }) {
     return loading(this);
   }
@@ -360,10 +346,10 @@ class _$LoadingRemoteDataState<T> extends LoadingRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UninitializedRemoteDataState<T> value)? uninitialized,
-    TResult Function(LoadingRemoteDataState<T> value)? loading,
-    TResult Function(ErrorRemoteDataState<T> value)? error,
-    TResult Function(LoadedRemoteDataState<T> value)? loaded,
+    TResult? Function(UninitializedDataState<T> value)? uninitialized,
+    TResult? Function(LoadingDataState<T> value)? loading,
+    TResult? Function(ErrorDataState<T> value)? error,
+    TResult? Function(LoadedDataState<T> value)? loaded,
   }) {
     return loading?.call(this);
   }
@@ -371,10 +357,10 @@ class _$LoadingRemoteDataState<T> extends LoadingRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UninitializedRemoteDataState<T> value)? uninitialized,
-    TResult Function(LoadingRemoteDataState<T> value)? loading,
-    TResult Function(ErrorRemoteDataState<T> value)? error,
-    TResult Function(LoadedRemoteDataState<T> value)? loaded,
+    TResult Function(UninitializedDataState<T> value)? uninitialized,
+    TResult Function(LoadingDataState<T> value)? loading,
+    TResult Function(ErrorDataState<T> value)? error,
+    TResult Function(LoadedDataState<T> value)? loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -384,25 +370,25 @@ class _$LoadingRemoteDataState<T> extends LoadingRemoteDataState<T> {
   }
 }
 
-abstract class LoadingRemoteDataState<T> extends RemoteDataState<T>
+abstract class LoadingDataState<T> extends DataState<T>
     implements ILoadingState<dynamic> {
-  factory LoadingRemoteDataState(
-      {final T? data,
-      final LoadingType loadingType}) = _$LoadingRemoteDataState<T>;
-  LoadingRemoteDataState._() : super._();
+  factory LoadingDataState({final T? data, final LoadingType loadingType}) =
+      _$LoadingDataState<T>;
+  LoadingDataState._() : super._();
 
   T? get data;
   LoadingType get loadingType;
   @JsonKey(ignore: true)
-  _$$LoadingRemoteDataStateCopyWith<T, _$LoadingRemoteDataState<T>>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$LoadingDataStateCopyWith<T, _$LoadingDataState<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErrorRemoteDataStateCopyWith<T, $Res> {
-  factory _$$ErrorRemoteDataStateCopyWith(_$ErrorRemoteDataState<T> value,
-          $Res Function(_$ErrorRemoteDataState<T>) then) =
-      __$$ErrorRemoteDataStateCopyWithImpl<T, $Res>;
+abstract class _$$ErrorDataStateCopyWith<T, $Res> {
+  factory _$$ErrorDataStateCopyWith(
+          _$ErrorDataState<T> value, $Res Function(_$ErrorDataState<T>) then) =
+      __$$ErrorDataStateCopyWithImpl<T, $Res>;
+  @useResult
   $Res call(
       {T? data,
       dynamic error,
@@ -412,51 +398,48 @@ abstract class _$$ErrorRemoteDataStateCopyWith<T, $Res> {
 }
 
 /// @nodoc
-class __$$ErrorRemoteDataStateCopyWithImpl<T, $Res>
-    extends _$RemoteDataStateCopyWithImpl<T, $Res>
-    implements _$$ErrorRemoteDataStateCopyWith<T, $Res> {
-  __$$ErrorRemoteDataStateCopyWithImpl(_$ErrorRemoteDataState<T> _value,
-      $Res Function(_$ErrorRemoteDataState<T>) _then)
-      : super(_value, (v) => _then(v as _$ErrorRemoteDataState<T>));
+class __$$ErrorDataStateCopyWithImpl<T, $Res>
+    extends _$DataStateCopyWithImpl<T, $Res, _$ErrorDataState<T>>
+    implements _$$ErrorDataStateCopyWith<T, $Res> {
+  __$$ErrorDataStateCopyWithImpl(
+      _$ErrorDataState<T> _value, $Res Function(_$ErrorDataState<T>) _then)
+      : super(_value, _then);
 
-  @override
-  _$ErrorRemoteDataState<T> get _value =>
-      super._value as _$ErrorRemoteDataState<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? data = freezed,
-    Object? error = freezed,
+    Object? error = null,
     Object? stackTrace = freezed,
-    Object? loadingType = freezed,
-    Object? temporary = freezed,
+    Object? loadingType = null,
+    Object? temporary = null,
   }) {
-    return _then(_$ErrorRemoteDataState<T>(
-      data: data == freezed
+    return _then(_$ErrorDataState<T>(
+      data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T?,
-      error: error == freezed
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      stackTrace: stackTrace == freezed
+      stackTrace: freezed == stackTrace
           ? _value.stackTrace
           : stackTrace // ignore: cast_nullable_to_non_nullable
               as StackTrace?,
-      loadingType: loadingType == freezed
+      loadingType: null == loadingType
           ? _value.loadingType
           : loadingType // ignore: cast_nullable_to_non_nullable
               as LoadingType,
-      temporary: temporary == freezed ? _value.temporary : temporary,
+      temporary: null == temporary ? _value.temporary : temporary,
     ));
   }
 }
 
 /// @nodoc
 
-class _$ErrorRemoteDataState<T> extends ErrorRemoteDataState<T> {
-  const _$ErrorRemoteDataState(
+class _$ErrorDataState<T> extends ErrorDataState<T> {
+  const _$ErrorDataState(
       {this.data,
       this.error,
       this.stackTrace,
@@ -479,20 +462,20 @@ class _$ErrorRemoteDataState<T> extends ErrorRemoteDataState<T> {
 
   @override
   String toString() {
-    return 'RemoteDataState<$T>.error(data: $data, error: $error, stackTrace: $stackTrace, loadingType: $loadingType, temporary: $temporary)';
+    return 'DataState<$T>.error(data: $data, error: $error, stackTrace: $stackTrace, loadingType: $loadingType, temporary: $temporary)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorRemoteDataState<T> &&
+            other is _$ErrorDataState<T> &&
             const DeepCollectionEquality().equals(other.data, data) &&
             const DeepCollectionEquality().equals(other.error, error) &&
-            const DeepCollectionEquality()
-                .equals(other.stackTrace, stackTrace) &&
-            const DeepCollectionEquality()
-                .equals(other.loadingType, loadingType) &&
+            (identical(other.stackTrace, stackTrace) ||
+                other.stackTrace == stackTrace) &&
+            (identical(other.loadingType, loadingType) ||
+                other.loadingType == loadingType) &&
             const DeepCollectionEquality().equals(other.temporary, temporary));
   }
 
@@ -501,15 +484,15 @@ class _$ErrorRemoteDataState<T> extends ErrorRemoteDataState<T> {
       runtimeType,
       const DeepCollectionEquality().hash(data),
       const DeepCollectionEquality().hash(error),
-      const DeepCollectionEquality().hash(stackTrace),
-      const DeepCollectionEquality().hash(loadingType),
+      stackTrace,
+      loadingType,
       const DeepCollectionEquality().hash(temporary));
 
   @JsonKey(ignore: true)
   @override
-  _$$ErrorRemoteDataStateCopyWith<T, _$ErrorRemoteDataState<T>> get copyWith =>
-      __$$ErrorRemoteDataStateCopyWithImpl<T, _$ErrorRemoteDataState<T>>(
-          this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$ErrorDataStateCopyWith<T, _$ErrorDataState<T>> get copyWith =>
+      __$$ErrorDataStateCopyWithImpl<T, _$ErrorDataState<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -527,12 +510,12 @@ class _$ErrorRemoteDataState<T> extends ErrorRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? uninitialized,
-    TResult Function(T? data, LoadingType loadingType)? loading,
-    TResult Function(T? data, dynamic error, StackTrace? stackTrace,
+    TResult? Function()? uninitialized,
+    TResult? Function(T? data, LoadingType loadingType)? loading,
+    TResult? Function(T? data, dynamic error, StackTrace? stackTrace,
             LoadingType loadingType, dynamic temporary)?
         error,
-    TResult Function(T data, bool firstTimeLoaded)? loaded,
+    TResult? Function(T data, bool firstTimeLoaded)? loaded,
   }) {
     return error?.call(data, this.error, stackTrace, loadingType, temporary);
   }
@@ -557,11 +540,10 @@ class _$ErrorRemoteDataState<T> extends ErrorRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UninitializedRemoteDataState<T> value)
-        uninitialized,
-    required TResult Function(LoadingRemoteDataState<T> value) loading,
-    required TResult Function(ErrorRemoteDataState<T> value) error,
-    required TResult Function(LoadedRemoteDataState<T> value) loaded,
+    required TResult Function(UninitializedDataState<T> value) uninitialized,
+    required TResult Function(LoadingDataState<T> value) loading,
+    required TResult Function(ErrorDataState<T> value) error,
+    required TResult Function(LoadedDataState<T> value) loaded,
   }) {
     return error(this);
   }
@@ -569,10 +551,10 @@ class _$ErrorRemoteDataState<T> extends ErrorRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UninitializedRemoteDataState<T> value)? uninitialized,
-    TResult Function(LoadingRemoteDataState<T> value)? loading,
-    TResult Function(ErrorRemoteDataState<T> value)? error,
-    TResult Function(LoadedRemoteDataState<T> value)? loaded,
+    TResult? Function(UninitializedDataState<T> value)? uninitialized,
+    TResult? Function(LoadingDataState<T> value)? loading,
+    TResult? Function(ErrorDataState<T> value)? error,
+    TResult? Function(LoadedDataState<T> value)? loaded,
   }) {
     return error?.call(this);
   }
@@ -580,10 +562,10 @@ class _$ErrorRemoteDataState<T> extends ErrorRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UninitializedRemoteDataState<T> value)? uninitialized,
-    TResult Function(LoadingRemoteDataState<T> value)? loading,
-    TResult Function(ErrorRemoteDataState<T> value)? error,
-    TResult Function(LoadedRemoteDataState<T> value)? loaded,
+    TResult Function(UninitializedDataState<T> value)? uninitialized,
+    TResult Function(LoadingDataState<T> value)? loading,
+    TResult Function(ErrorDataState<T> value)? error,
+    TResult Function(LoadedDataState<T> value)? loaded,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -593,15 +575,15 @@ class _$ErrorRemoteDataState<T> extends ErrorRemoteDataState<T> {
   }
 }
 
-abstract class ErrorRemoteDataState<T> extends RemoteDataState<T>
+abstract class ErrorDataState<T> extends DataState<T>
     implements IErrorState<dynamic> {
-  const factory ErrorRemoteDataState(
+  const factory ErrorDataState(
       {final T? data,
       final dynamic error,
       final StackTrace? stackTrace,
       final LoadingType loadingType,
-      final dynamic temporary}) = _$ErrorRemoteDataState<T>;
-  const ErrorRemoteDataState._() : super._();
+      final dynamic temporary}) = _$ErrorDataState<T>;
+  const ErrorDataState._() : super._();
 
   T? get data;
   dynamic get error;
@@ -609,41 +591,39 @@ abstract class ErrorRemoteDataState<T> extends RemoteDataState<T>
   LoadingType get loadingType;
   dynamic get temporary;
   @JsonKey(ignore: true)
-  _$$ErrorRemoteDataStateCopyWith<T, _$ErrorRemoteDataState<T>> get copyWith =>
+  _$$ErrorDataStateCopyWith<T, _$ErrorDataState<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LoadedRemoteDataStateCopyWith<T, $Res> {
-  factory _$$LoadedRemoteDataStateCopyWith(_$LoadedRemoteDataState<T> value,
-          $Res Function(_$LoadedRemoteDataState<T>) then) =
-      __$$LoadedRemoteDataStateCopyWithImpl<T, $Res>;
+abstract class _$$LoadedDataStateCopyWith<T, $Res> {
+  factory _$$LoadedDataStateCopyWith(_$LoadedDataState<T> value,
+          $Res Function(_$LoadedDataState<T>) then) =
+      __$$LoadedDataStateCopyWithImpl<T, $Res>;
+  @useResult
   $Res call({T data, bool firstTimeLoaded});
 }
 
 /// @nodoc
-class __$$LoadedRemoteDataStateCopyWithImpl<T, $Res>
-    extends _$RemoteDataStateCopyWithImpl<T, $Res>
-    implements _$$LoadedRemoteDataStateCopyWith<T, $Res> {
-  __$$LoadedRemoteDataStateCopyWithImpl(_$LoadedRemoteDataState<T> _value,
-      $Res Function(_$LoadedRemoteDataState<T>) _then)
-      : super(_value, (v) => _then(v as _$LoadedRemoteDataState<T>));
+class __$$LoadedDataStateCopyWithImpl<T, $Res>
+    extends _$DataStateCopyWithImpl<T, $Res, _$LoadedDataState<T>>
+    implements _$$LoadedDataStateCopyWith<T, $Res> {
+  __$$LoadedDataStateCopyWithImpl(
+      _$LoadedDataState<T> _value, $Res Function(_$LoadedDataState<T>) _then)
+      : super(_value, _then);
 
-  @override
-  _$LoadedRemoteDataState<T> get _value =>
-      super._value as _$LoadedRemoteDataState<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
-    Object? firstTimeLoaded = freezed,
+    Object? data = null,
+    Object? firstTimeLoaded = null,
   }) {
-    return _then(_$LoadedRemoteDataState<T>(
-      data: data == freezed
+    return _then(_$LoadedDataState<T>(
+      data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T,
-      firstTimeLoaded: firstTimeLoaded == freezed
+      firstTimeLoaded: null == firstTimeLoaded
           ? _value.firstTimeLoaded
           : firstTimeLoaded // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -653,9 +633,8 @@ class __$$LoadedRemoteDataStateCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$LoadedRemoteDataState<T> extends LoadedRemoteDataState<T> {
-  const _$LoadedRemoteDataState(
-      {required this.data, this.firstTimeLoaded = false})
+class _$LoadedDataState<T> extends LoadedDataState<T> {
+  const _$LoadedDataState({required this.data, this.firstTimeLoaded = false})
       : super._();
 
   @override
@@ -666,31 +645,29 @@ class _$LoadedRemoteDataState<T> extends LoadedRemoteDataState<T> {
 
   @override
   String toString() {
-    return 'RemoteDataState<$T>.loaded(data: $data, firstTimeLoaded: $firstTimeLoaded)';
+    return 'DataState<$T>.loaded(data: $data, firstTimeLoaded: $firstTimeLoaded)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoadedRemoteDataState<T> &&
+            other is _$LoadedDataState<T> &&
             const DeepCollectionEquality().equals(other.data, data) &&
-            const DeepCollectionEquality()
-                .equals(other.firstTimeLoaded, firstTimeLoaded));
+            (identical(other.firstTimeLoaded, firstTimeLoaded) ||
+                other.firstTimeLoaded == firstTimeLoaded));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(data),
-      const DeepCollectionEquality().hash(firstTimeLoaded));
+      runtimeType, const DeepCollectionEquality().hash(data), firstTimeLoaded);
 
   @JsonKey(ignore: true)
   @override
-  _$$LoadedRemoteDataStateCopyWith<T, _$LoadedRemoteDataState<T>>
-      get copyWith =>
-          __$$LoadedRemoteDataStateCopyWithImpl<T, _$LoadedRemoteDataState<T>>(
-              this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$LoadedDataStateCopyWith<T, _$LoadedDataState<T>> get copyWith =>
+      __$$LoadedDataStateCopyWithImpl<T, _$LoadedDataState<T>>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -708,12 +685,12 @@ class _$LoadedRemoteDataState<T> extends LoadedRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? uninitialized,
-    TResult Function(T? data, LoadingType loadingType)? loading,
-    TResult Function(T? data, dynamic error, StackTrace? stackTrace,
+    TResult? Function()? uninitialized,
+    TResult? Function(T? data, LoadingType loadingType)? loading,
+    TResult? Function(T? data, dynamic error, StackTrace? stackTrace,
             LoadingType loadingType, dynamic temporary)?
         error,
-    TResult Function(T data, bool firstTimeLoaded)? loaded,
+    TResult? Function(T data, bool firstTimeLoaded)? loaded,
   }) {
     return loaded?.call(data, firstTimeLoaded);
   }
@@ -738,11 +715,10 @@ class _$LoadedRemoteDataState<T> extends LoadedRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(UninitializedRemoteDataState<T> value)
-        uninitialized,
-    required TResult Function(LoadingRemoteDataState<T> value) loading,
-    required TResult Function(ErrorRemoteDataState<T> value) error,
-    required TResult Function(LoadedRemoteDataState<T> value) loaded,
+    required TResult Function(UninitializedDataState<T> value) uninitialized,
+    required TResult Function(LoadingDataState<T> value) loading,
+    required TResult Function(ErrorDataState<T> value) error,
+    required TResult Function(LoadedDataState<T> value) loaded,
   }) {
     return loaded(this);
   }
@@ -750,10 +726,10 @@ class _$LoadedRemoteDataState<T> extends LoadedRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(UninitializedRemoteDataState<T> value)? uninitialized,
-    TResult Function(LoadingRemoteDataState<T> value)? loading,
-    TResult Function(ErrorRemoteDataState<T> value)? error,
-    TResult Function(LoadedRemoteDataState<T> value)? loaded,
+    TResult? Function(UninitializedDataState<T> value)? uninitialized,
+    TResult? Function(LoadingDataState<T> value)? loading,
+    TResult? Function(ErrorDataState<T> value)? error,
+    TResult? Function(LoadedDataState<T> value)? loaded,
   }) {
     return loaded?.call(this);
   }
@@ -761,10 +737,10 @@ class _$LoadedRemoteDataState<T> extends LoadedRemoteDataState<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(UninitializedRemoteDataState<T> value)? uninitialized,
-    TResult Function(LoadingRemoteDataState<T> value)? loading,
-    TResult Function(ErrorRemoteDataState<T> value)? error,
-    TResult Function(LoadedRemoteDataState<T> value)? loaded,
+    TResult Function(UninitializedDataState<T> value)? uninitialized,
+    TResult Function(LoadingDataState<T> value)? loading,
+    TResult Function(ErrorDataState<T> value)? error,
+    TResult Function(LoadedDataState<T> value)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -774,16 +750,16 @@ class _$LoadedRemoteDataState<T> extends LoadedRemoteDataState<T> {
   }
 }
 
-abstract class LoadedRemoteDataState<T> extends RemoteDataState<T>
+abstract class LoadedDataState<T> extends DataState<T>
     implements ILoadedState<dynamic> {
-  const factory LoadedRemoteDataState(
+  const factory LoadedDataState(
       {required final T data,
-      final bool firstTimeLoaded}) = _$LoadedRemoteDataState<T>;
-  const LoadedRemoteDataState._() : super._();
+      final bool firstTimeLoaded}) = _$LoadedDataState<T>;
+  const LoadedDataState._() : super._();
 
   T get data;
   bool get firstTimeLoaded;
   @JsonKey(ignore: true)
-  _$$LoadedRemoteDataStateCopyWith<T, _$LoadedRemoteDataState<T>>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$LoadedDataStateCopyWith<T, _$LoadedDataState<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }

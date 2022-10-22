@@ -28,34 +28,38 @@ mixin _$OptionSelectorState<T> {
 abstract class $OptionSelectorStateCopyWith<T, $Res> {
   factory $OptionSelectorStateCopyWith(OptionSelectorState<T> value,
           $Res Function(OptionSelectorState<T>) then) =
-      _$OptionSelectorStateCopyWithImpl<T, $Res>;
+      _$OptionSelectorStateCopyWithImpl<T, $Res, OptionSelectorState<T>>;
+  @useResult
   $Res call({int? selectedIndex, List<T> options});
 }
 
 /// @nodoc
-class _$OptionSelectorStateCopyWithImpl<T, $Res>
+class _$OptionSelectorStateCopyWithImpl<T, $Res,
+        $Val extends OptionSelectorState<T>>
     implements $OptionSelectorStateCopyWith<T, $Res> {
   _$OptionSelectorStateCopyWithImpl(this._value, this._then);
 
-  final OptionSelectorState<T> _value;
   // ignore: unused_field
-  final $Res Function(OptionSelectorState<T>) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? selectedIndex = freezed,
-    Object? options = freezed,
+    Object? options = null,
   }) {
     return _then(_value.copyWith(
-      selectedIndex: selectedIndex == freezed
+      selectedIndex: freezed == selectedIndex
           ? _value.selectedIndex
           : selectedIndex // ignore: cast_nullable_to_non_nullable
               as int?,
-      options: options == freezed
+      options: null == options
           ? _value.options
           : options // ignore: cast_nullable_to_non_nullable
               as List<T>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -66,32 +70,31 @@ abstract class _$$_OptionSelectorStateCopyWith<T, $Res>
           $Res Function(_$_OptionSelectorState<T>) then) =
       __$$_OptionSelectorStateCopyWithImpl<T, $Res>;
   @override
+  @useResult
   $Res call({int? selectedIndex, List<T> options});
 }
 
 /// @nodoc
 class __$$_OptionSelectorStateCopyWithImpl<T, $Res>
-    extends _$OptionSelectorStateCopyWithImpl<T, $Res>
+    extends _$OptionSelectorStateCopyWithImpl<T, $Res,
+        _$_OptionSelectorState<T>>
     implements _$$_OptionSelectorStateCopyWith<T, $Res> {
   __$$_OptionSelectorStateCopyWithImpl(_$_OptionSelectorState<T> _value,
       $Res Function(_$_OptionSelectorState<T>) _then)
-      : super(_value, (v) => _then(v as _$_OptionSelectorState<T>));
+      : super(_value, _then);
 
-  @override
-  _$_OptionSelectorState<T> get _value =>
-      super._value as _$_OptionSelectorState<T>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? selectedIndex = freezed,
-    Object? options = freezed,
+    Object? options = null,
   }) {
     return _then(_$_OptionSelectorState<T>(
-      selectedIndex: selectedIndex == freezed
+      selectedIndex: freezed == selectedIndex
           ? _value.selectedIndex
           : selectedIndex // ignore: cast_nullable_to_non_nullable
               as int?,
-      options: options == freezed
+      options: null == options
           ? _value._options
           : options // ignore: cast_nullable_to_non_nullable
               as List<T>,
@@ -126,19 +129,18 @@ class _$_OptionSelectorState<T> extends _OptionSelectorState<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OptionSelectorState<T> &&
-            const DeepCollectionEquality()
-                .equals(other.selectedIndex, selectedIndex) &&
+            (identical(other.selectedIndex, selectedIndex) ||
+                other.selectedIndex == selectedIndex) &&
             const DeepCollectionEquality().equals(other._options, _options));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(selectedIndex),
+  int get hashCode => Object.hash(runtimeType, selectedIndex,
       const DeepCollectionEquality().hash(_options));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_OptionSelectorStateCopyWith<T, _$_OptionSelectorState<T>> get copyWith =>
       __$$_OptionSelectorStateCopyWithImpl<T, _$_OptionSelectorState<T>>(
           this, _$identity);

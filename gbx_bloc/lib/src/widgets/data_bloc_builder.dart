@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gbx_core/gbx_core.dart';
 
-class RemoteDataBlocBuilder<B extends RemoteDataBloc,
-    S extends RemoteDataState<T>, T> extends StatelessWidget {
-  const RemoteDataBlocBuilder({
+import '../blocs/bloc_state.dart';
+import '../blocs/index.dart';
+
+class DataBlocBuilder<B extends DataBloc, S extends DataState<T>, T>
+    extends StatelessWidget {
+  const DataBlocBuilder({
     this.bloc,
     super.key,
     required this.builder,
@@ -26,18 +29,18 @@ class RemoteDataBlocBuilder<B extends RemoteDataBloc,
   final WidgetBuilder? uninitializedBuilder;
   final Widget Function(BuildContext context, T? data, dynamic error,
       StackTrace? stackTrace, LoadingType loadingType)? errorBuilder;
-  final void Function(ErrorRemoteDataState<T> state)? onError;
-  final void Function(LoadedRemoteDataState<T> state)? onDataLoaded;
-  final BlocWidgetListener<RemoteDataState<T>>? listener;
+  final void Function(ErrorDataState<T> state)? onError;
+  final void Function(LoadedDataState<T> state)? onDataLoaded;
+  final BlocWidgetListener<DataState<T>>? listener;
 
   final bool initializeOnStart;
 
   @override
   Widget build(BuildContext context) {
     final bloc = this.bloc ?? BlocProvider.of<B>(context);
-    if (initializeOnStart && bloc.state is UninitializedRemoteDataState) {
+    if (initializeOnStart && bloc.state is UninitializedDataState) {
       Log.i("Initializing $B");
-      (bloc).add(const InitializeRemoteData());
+      (bloc).add(const InitializeData());
     }
     return BlocConsumer<StateStreamable<S>, S>(
       bloc: bloc as StateStreamable<S>,
@@ -53,7 +56,7 @@ class RemoteDataBlocBuilder<B extends RemoteDataBloc,
             builder(context, state);
       },
       listenWhen: (previous, current) =>
-          current is ErrorRemoteDataState || current is LoadedRemoteDataState,
+          current is ErrorDataState || current is LoadedDataState,
       listener: (context, state) {
         state.mapOrNull(
           error: (state) => onError?.call(state),

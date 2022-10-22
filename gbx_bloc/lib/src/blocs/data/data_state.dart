@@ -1,36 +1,37 @@
-part of 'remote_data_bloc.dart';
+part of 'data_bloc.dart';
 
 @freezed
-class RemoteDataState<T> with _$RemoteDataState<T> implements IState {
-  const RemoteDataState._();
+class DataState<T> with _$DataState<T> implements IState {
+  const DataState._();
 
   @Implements<IUninitialiazedState>()
-  const factory RemoteDataState.uninitialized() = UninitializedRemoteDataState;
+  const factory DataState.uninitialized() = UninitializedDataState;
 
   @Implements<ILoadingState>()
-  factory RemoteDataState.loading({
+  factory DataState.loading({
     T? data,
     @Default(LoadingType.initializing) LoadingType loadingType,
-  }) = LoadingRemoteDataState<T>;
+  }) = LoadingDataState<T>;
 
   @Implements<IErrorState>()
-  const factory RemoteDataState.error({
+  const factory DataState.error({
     T? data,
     dynamic error,
     StackTrace? stackTrace,
     @Default(LoadingType.initializing) LoadingType loadingType,
     @Default(false) temporary,
-  }) = ErrorRemoteDataState<T>;
+  }) = ErrorDataState<T>;
 
   @Implements<ILoadedState>()
-  const factory RemoteDataState.loaded({
+  const factory DataState.loaded({
     required T data,
     @Default(false) bool firstTimeLoaded,
-  }) = LoadedRemoteDataState<T>;
+  }) = LoadedDataState<T>;
 
   T? dataOrNull() => mapOrNull<T?>(
         loaded: (state) => state.data,
         loading: (state) => state.data,
+        error: (state) => state.data,
       );
 
   bool get isTemporary => mapOrNull(error: (state) => state.temporary) ?? false;
