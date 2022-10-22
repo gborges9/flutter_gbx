@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gbx_core/src/domain/bloc/bloc_state.dart';
 
-import '../../../../domain/bloc/bloc_state.dart';
 import '../remote_data_bloc.dart';
 
 /// A Mixin for refreshable [RemoteDataBloc]s.
@@ -19,7 +19,7 @@ mixin RefreshableData<T, E extends RefreshRemoteData> on RemoteDataBloc<T> {
   /// Defines if the event will be handled or discarted.
   /// By default, it will only be handled if the current state is [RemoteDataLoaded].
   bool canRefresh(E event, RemoteDataState<T> state) {
-    return state is RemoteDataLoaded<T>;
+    return state is LoadedRemoteDataState<T>;
   }
 
   /// Handles the [RefreshRemoteData] event.
@@ -27,32 +27,25 @@ mixin RefreshableData<T, E extends RefreshRemoteData> on RemoteDataBloc<T> {
     E event,
     Emitter<RemoteDataState<T>> emit,
   ) async {
-    final state = this.state as InitializedRemoteDataState<T>;
-    emit(getRefreshingState(event, state.data));
+    emit(LoadingRemoteDataState(
+      data: state.dataOrNull(),
+      loadingType: LoadingType.refreshing,
+    ));
     try {
       final data = await fetchData(event);
-      emit(getLoadingTemporarySuccessState(event, data));
-      emit(getLoadedState(event, data));
+      emit(LoadedRemoteDataState(data: data));
     } catch (e, trace) {
-      emit(getLoadingTemporaryFailState(
-        event,
-        state.data,
-        error: e,
-        trace: trace,
-      ));
-      emit(getLoadedState(event, state.data));
+      emit(
+        ErrorRemoteDataState(
+            data: state.dataOrNull(),
+            error: e,
+            stackTrace: trace,
+            loadingType: LoadingType.refreshing),
+      );
     }
   }
-
-  RemoteDataRefreshing<T> getRefreshingState(E event, T data) =>
-      RemoteDataRefreshing(data);
 }
 
 class RefreshRemoteData extends RemoteDataEvent {
   const RefreshRemoteData();
-}
-
-class RemoteDataRefreshing<T> extends InitializedRemoteDataState<T>
-    implements LoadingState {
-  RemoteDataRefreshing(super.data);
 }

@@ -1,25 +1,38 @@
-/// Interface for every state that represents an uninitialized data state.
-abstract class UninitialiazedState {}
+abstract class IState {
+  const IState();
+}
 
-/// Interface for every state that represents fetching or loading data.
-abstract class LoadingState {}
+/// Interface for every state that represents an uninitialized data state.
+abstract class IUninitialiazedState extends IState {
+  const IUninitialiazedState();
+}
+
+abstract class ILoadingState<T> extends IState {
+  final T? data;
+
+  const ILoadingState({this.data});
+}
+
+abstract class ILoadedState<T> extends IState {
+  final T data;
+
+  const ILoadedState({required this.data});
+}
 
 /// Interface for error states
-abstract class ErrorState {
+abstract class IErrorState<T> extends IState {
+  final T? data;
   final dynamic error;
   final StackTrace? stackTrace;
 
-  ErrorState({this.error, this.stackTrace});
+  const IErrorState({this.data, this.error, this.stackTrace});
 }
 
-/// Interface that defines a temporary state that will be shortly replaced.
-abstract class TemporaryState {
-  const TemporaryState();
+enum LoadingType {
+  initializing,
+  refreshing,
+  loadingMore,
+  setting,
+  cleaning,
+  appending,
 }
-
-/// Interface that represents a temporary success state that will be shortly replaced.
-abstract class TemporarySuccessState implements TemporaryState {}
-
-/// Interface that represents a temporary error state that will be shortly replaced.
-abstract class TemporaryErrorState extends ErrorState
-    implements TemporaryState {}

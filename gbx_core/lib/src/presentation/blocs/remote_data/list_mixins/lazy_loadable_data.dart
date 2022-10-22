@@ -21,7 +21,7 @@ mixin LazyLoadable<T extends Iterable, E extends LoadMoreRemoteData>
   ///
   /// By default, it will only be handled if the current state is [RemoteDataLoaded].
   bool canLoadMore(E event, RemoteDataState<T> state) {
-    return state is RemoteDataLoaded<T>;
+    return state is LoadedRemoteDataState<T>;
   }
 
   /// Handles the [LoadMoreRemoteData] event.
@@ -29,35 +29,31 @@ mixin LazyLoadable<T extends Iterable, E extends LoadMoreRemoteData>
     E event,
     Emitter<RemoteDataState<T>> emit,
   ) async {
-    final state = this.state as InitializedRemoteDataState<T>;
-    emit(getLoadingMoreState(event, state.data));
+    final initialData = state.dataOrNull();
+    assert(initialData != null, "Can't load more data without initial data!");
+    emit(LoadingRemoteDataState(
+        data: initialData, loadingType: LoadingType.loadingMore));
     try {
-      final data = await loadMoreData(event, state.data);
-      emit(getLoadingTemporarySuccessState(event, data));
-      emit(getLoadedState(event, data));
+      final data = await loadMoreData(event, initialData!);
+      emit(LoadedRemoteDataState(data: data, firstTimeLoaded: false));
     } catch (e, trace) {
-      emit(getLoadingTemporaryFailState(
-        event,
-        state.data,
-        error: e,
-        trace: trace,
-      ));
-      emit(getLoadedState(event, state.data));
+      emit(
+        ErrorRemoteDataState(
+          data: initialData,
+          error: e,
+          stackTrace: trace,
+          loadingType: LoadingType.loadingMore,
+          temporary: true,
+        ),
+      );
+      emit(LoadedRemoteDataState(data: initialData!));
     }
   }
 
   /// Load the data and return the resulting list
   Future<T> loadMoreData(E event, T oldList);
-
-  RemoteDataLoadingMore<T> getLoadingMoreState(E event, T data) =>
-      RemoteDataLoadingMore(data);
 }
 
 class LoadMoreRemoteData extends RemoteDataEvent {
   const LoadMoreRemoteData();
-}
-
-class RemoteDataLoadingMore<T> extends InitializedRemoteDataState<T>
-    implements LoadingState {
-  RemoteDataLoadingMore(super.data);
 }

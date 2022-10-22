@@ -3,13 +3,15 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:gbx_core/src/core/utils/bloc_helpers.dart';
 import 'package:gbx_core/src/domain/bloc/bloc_state.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'remote_data_event.dart';
 part 'remote_data_state.dart';
+part 'remote_data_bloc.freezed.dart';
 
 abstract class RemoteDataBloc<T>
     extends Bloc<RemoteDataEvent, RemoteDataState<T>> with BlocHelper {
-  RemoteDataBloc() : super(const RemoteDataUninitialized()) {
+  RemoteDataBloc() : super(const RemoteDataState.uninitialized()) {
     declareEvents();
   }
 
@@ -21,40 +23,24 @@ abstract class RemoteDataBloc<T>
   }
 
   bool canInitialize(InitializeRemoteData event, RemoteDataState<T> state) {
-    return state is RemoteDataUninitialized;
+    return state is UninitializedRemoteDataState ||
+        state is ErrorRemoteDataState;
   }
 
   Future<void> handleInitializeData(
     InitializeRemoteData event,
     Emitter<RemoteDataState<T>> emit,
   ) async {
-    emit(getLoadingState(event));
+    emit(LoadingRemoteDataState(loadingType: LoadingType.initializing));
     try {
       final data = await fetchData(event);
-      emit(getLoadingTemporarySuccessState(event, data));
-      emit(getLoadedState(event, data));
+      emit(LoadedRemoteDataState(data: data, firstTimeLoaded: true));
     } catch (e, trace) {
-      emit(getLoadingErrorState(event, error: e, stackTrace: trace));
+      emit(ErrorRemoteDataState(
+          error: e, stackTrace: trace, loadingType: LoadingType.initializing));
     }
   }
 
   /// Fetches the data for the Bloc
   FutureOr<T> fetchData(RemoteDataEvent event);
-
-  RemoteDataLoading<T> getLoadingState(RemoteDataEvent event) =>
-      const RemoteDataLoading();
-  RemoteDataLoaded<T> getLoadedState(RemoteDataEvent event, T data) =>
-      RemoteDataLoaded(data);
-
-  RemoteDataLoadingFailed<T> getLoadingErrorState(RemoteDataEvent event,
-          {dynamic error, StackTrace? stackTrace}) =>
-      RemoteDataLoadingFailed(error: error, stackTrace: stackTrace);
-
-  RemoteDataLoadingTemporarySuccess<T> getLoadingTemporarySuccessState(
-          RemoteDataEvent event, T data) =>
-      RemoteDataLoadingTemporarySuccess(data);
-  RemoteDataLoadingTemporaryFail<T> getLoadingTemporaryFailState(
-          RemoteDataEvent event, T data,
-          {dynamic error, StackTrace? trace}) =>
-      RemoteDataLoadingTemporaryFail(data, error: error, stackTrace: trace);
 }

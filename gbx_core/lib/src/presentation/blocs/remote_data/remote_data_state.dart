@@ -1,65 +1,37 @@
 part of 'remote_data_bloc.dart';
 
-abstract class RemoteDataState<T> {
-  const RemoteDataState();
-}
+@freezed
+class RemoteDataState<T> with _$RemoteDataState<T> implements IState {
+  const RemoteDataState._();
 
-abstract class UninitializedRemoteDataState<T> extends RemoteDataState<T> {
-  const UninitializedRemoteDataState();
-}
+  @Implements<IUninitialiazedState>()
+  const factory RemoteDataState.uninitialized() = UninitializedRemoteDataState;
 
-abstract class InitializedRemoteDataState<T> extends RemoteDataState<T> {
-  final T data;
-  const InitializedRemoteDataState(this.data);
-}
+  @Implements<ILoadingState>()
+  factory RemoteDataState.loading({
+    T? data,
+    @Default(LoadingType.initializing) LoadingType loadingType,
+  }) = LoadingRemoteDataState<T>;
 
-// ###########################
-//    Uninitialized States
-// ###########################
-class RemoteDataUninitialized<T> extends UninitializedRemoteDataState<T>
-    implements UninitialiazedState {
-  const RemoteDataUninitialized();
-}
+  @Implements<IErrorState>()
+  const factory RemoteDataState.error({
+    T? data,
+    dynamic error,
+    StackTrace? stackTrace,
+    @Default(LoadingType.initializing) LoadingType loadingType,
+    @Default(false) temporary,
+  }) = ErrorRemoteDataState<T>;
 
-class RemoteDataLoading<T> extends UninitializedRemoteDataState<T>
-    implements LoadingState {
-  const RemoteDataLoading();
-}
+  @Implements<ILoadedState>()
+  const factory RemoteDataState.loaded({
+    required T data,
+    @Default(false) bool firstTimeLoaded,
+  }) = LoadedRemoteDataState<T>;
 
-class RemoteDataLoadingFailed<T> extends UninitializedRemoteDataState<T>
-    implements ErrorState {
-  @override
-  final dynamic error;
+  T? dataOrNull() => mapOrNull<T?>(
+        loaded: (state) => state.data,
+        loading: (state) => state.data,
+      );
 
-  @override
-  final StackTrace? stackTrace;
-
-  RemoteDataLoadingFailed({this.error, this.stackTrace});
-}
-
-// ###########################
-//    Initialized States
-// ###########################
-class RemoteDataLoaded<T> extends InitializedRemoteDataState<T> {
-  RemoteDataLoaded(super.data);
-}
-
-// ###########################
-//    Temporary States
-// ###########################
-
-class RemoteDataLoadingTemporarySuccess<T> extends InitializedRemoteDataState<T>
-    implements TemporarySuccessState {
-  RemoteDataLoadingTemporarySuccess(super.data);
-}
-
-class RemoteDataLoadingTemporaryFail<T> extends InitializedRemoteDataState<T>
-    implements TemporaryErrorState {
-  RemoteDataLoadingTemporaryFail(super.data, {this.error, this.stackTrace});
-
-  @override
-  final dynamic error;
-
-  @override
-  final StackTrace? stackTrace;
+  bool get isTemporary => mapOrNull(error: (state) => state.temporary) ?? false;
 }

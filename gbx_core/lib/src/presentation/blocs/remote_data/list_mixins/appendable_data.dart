@@ -21,7 +21,7 @@ mixin AppendableData<T extends Iterable, E extends AppendRemoteData>
   ///
   /// By default, it will only be handled if the current state is [RemoteDataLoaded].
   bool canAppend(E event, RemoteDataState<T> state) {
-    return state is RemoteDataLoaded<T>;
+    return state is LoadedRemoteDataState<T>;
   }
 
   /// Handles the [AppendRemoteData] event.
@@ -29,37 +29,29 @@ mixin AppendableData<T extends Iterable, E extends AppendRemoteData>
     E event,
     Emitter<RemoteDataState<T>> emit,
   ) async {
-    final state = this.state as InitializedRemoteDataState<T>;
-    emit(getAppendingState(event, state.data));
+    final initialData = state.dataOrNull()!;
+    emit(LoadingRemoteDataState(
+        data: initialData, loadingType: LoadingType.appending));
     try {
-      final data = await appendData(event, state.data);
-      emit(getLoadingTemporarySuccessState(event, data));
-      emit(getLoadedState(event, data));
+      final data = await appendData(event, initialData);
+      emit(LoadedRemoteDataState(data: data));
     } catch (e, trace) {
-      emit(getLoadingTemporaryFailState(
-        event,
-        state.data,
-        error: e,
-        trace: trace,
-      ));
-      emit(getLoadedState(event, state.data));
+      emit(ErrorRemoteDataState(
+          data: initialData,
+          error: e,
+          stackTrace: trace,
+          loadingType: LoadingType.appending,
+          temporary: true));
+      emit(LoadedRemoteDataState(data: initialData));
     }
   }
 
   /// Append the data and return the resulting list
   Future<T> appendData(E event, T oldList);
-
-  RemoteDataAppending<T> getAppendingState(E event, T data) =>
-      RemoteDataAppending(data);
 }
 
 class AppendRemoteData<T> extends RemoteDataEvent {
   const AppendRemoteData({required this.newItems});
 
   final T newItems;
-}
-
-class RemoteDataAppending<T> extends InitializedRemoteDataState<T>
-    implements LoadingState {
-  const RemoteDataAppending(super.data);
 }

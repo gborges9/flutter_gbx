@@ -16,19 +16,19 @@ mixin CleanableData<T, E extends CleanRemoteData> on RemoteDataBloc<T> {
   }
 
   /// Defines if the event will be handled or discarted.
-  /// By default, it will only be handled if the current state is [RemoteDataLoaded].
+  /// By default, it will only be handled if the current state is [LoadedRemoteDataState].
   bool canClean(E event, RemoteDataState<T> state) {
-    return state is RemoteDataLoaded<T>;
+    return state is LoadedRemoteDataState<T>;
   }
 
   /// Handles the [CleanRemoteData] event.
   ///
-  /// By default, this will only emit the [RemoteDataUninitialized] state.
+  /// By default, this will only emit the [UninitializedRemoteDataState] state.
   Future<void> handleCleanData(
     E event,
     Emitter<RemoteDataState<T>> emit,
   ) async {
-    emit(const RemoteDataUninitialized());
+    emit(const UninitializedRemoteDataState());
   }
 }
 

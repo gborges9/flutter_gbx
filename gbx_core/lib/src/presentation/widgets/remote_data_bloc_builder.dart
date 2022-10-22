@@ -11,23 +11,23 @@ class RemoteDataBlocBuilder<B extends RemoteDataBloc,
     this.loadedBuilder,
     this.loadingBuilder,
     this.uninitializedBuilder,
-    this.refreshingBuilder,
     this.errorBuilder,
     this.onError,
-    this.onSuccess,
+    this.onDataLoaded,
     this.listener,
     this.initializeOnStart = false,
   });
 
   final B? bloc;
   final BlocWidgetBuilder<S> builder;
-  final BlocWidgetBuilder<RemoteDataLoaded<T>>? loadedBuilder;
-  final BlocWidgetBuilder<RemoteDataLoading<T>>? loadingBuilder;
-  final BlocWidgetBuilder<RemoteDataUninitialized<T>>? uninitializedBuilder;
-  final BlocWidgetBuilder<RemoteDataRefreshing<T>>? refreshingBuilder;
-  final BlocWidgetBuilder<RemoteDataLoadingFailed<T>>? errorBuilder;
-  final BlocWidgetListener<RemoteDataLoadingTemporaryFail>? onError;
-  final BlocWidgetListener<RemoteDataLoadingTemporarySuccess>? onSuccess;
+  final Widget Function(BuildContext context, T data)? loadedBuilder;
+  final Widget Function(BuildContext context, T? data, LoadingType loadingType)?
+      loadingBuilder;
+  final WidgetBuilder? uninitializedBuilder;
+  final Widget Function(BuildContext context, T? data, dynamic error,
+      StackTrace? stackTrace, LoadingType loadingType)? errorBuilder;
+  final void Function(ErrorRemoteDataState<T> state)? onError;
+  final void Function(LoadedRemoteDataState<T> state)? onDataLoaded;
   final BlocWidgetListener<RemoteDataState<T>>? listener;
 
   final bool initializeOnStart;
@@ -35,44 +35,30 @@ class RemoteDataBlocBuilder<B extends RemoteDataBloc,
   @override
   Widget build(BuildContext context) {
     final bloc = this.bloc ?? BlocProvider.of<B>(context);
-    if (initializeOnStart && bloc.state is RemoteDataUninitialized) {
+    if (initializeOnStart && bloc.state is UninitializedRemoteDataState) {
       Log.i("Initializing $B");
       (bloc).add(const InitializeRemoteData());
     }
     return BlocConsumer<StateStreamable<S>, S>(
       bloc: bloc as StateStreamable<S>,
       builder: (context, state) {
-        if (state is RemoteDataUninitialized<T>) {
-          return uninitializedBuilder?.call(context, state) ??
-              builder(context, state);
-        }
-        if (state is RemoteDataRefreshing<T>) {
-          return refreshingBuilder?.call(context, state) ??
-              builder.call(context, state);
-        }
-        if (state is RemoteDataLoading<T>) {
-          return loadingBuilder?.call(context, state) ??
-              builder(context, state);
-        }
-        if (state is RemoteDataLoaded<T>) {
-          return loadedBuilder?.call(context, state) ?? builder(context, state);
-        }
-        if (state is RemoteDataLoadingFailed<T>) {
-          return errorBuilder?.call(context, state) ?? builder(context, state);
-        }
-        return builder(context, state);
+        return state.when(
+              uninitialized: () => uninitializedBuilder?.call(context),
+              loading: (data, loadingType) =>
+                  loadingBuilder?.call(context, data, loadingType),
+              error: (data, error, stackTrace, loadingType, _) => errorBuilder
+                  ?.call(context, data, error, stackTrace, loadingType),
+              loaded: (data, _) => loadedBuilder?.call(context, data),
+            ) ??
+            builder(context, state);
       },
-      buildWhen: (previous, current) => current is! TemporaryState,
       listenWhen: (previous, current) =>
-          current is TemporaryState || current is RemoteDataUninitialized,
+          current is ErrorRemoteDataState || current is LoadedRemoteDataState,
       listener: (context, state) {
-        Log.v("GOT STATE AT BUILDER ${state.runtimeType}", type: runtimeType);
-        if (state is RemoteDataLoadingTemporaryFail<T>) {
-          onError?.call(context, state);
-        }
-        if (state is RemoteDataLoadingTemporarySuccess<T>) {
-          onSuccess?.call(context, state);
-        }
+        state.mapOrNull(
+          error: (state) => onError?.call(state),
+          loaded: (state) => onDataLoaded?.call(state),
+        );
 
         listener?.call(context, state);
       },
