@@ -8,10 +8,10 @@ import '../data_bloc.dart';
 /// A Mixin for [DataBloc]s with appendable data.
 ///
 /// Use it if you need to append more data over time in your bloc.
-mixin AppendableData<T extends Iterable, E extends AppendData> on DataBloc<T> {
+mixin AppendableData<E extends AppendData, T extends Iterable> on DataBloc<T> {
   @override
-  void declareEvents() {
-    super.declareEvents();
+  void declareWorkflows() {
+    super.declareWorkflows();
     conditionalOn<E>(
       handler: handleAppendData,
       conditional: canAppend,

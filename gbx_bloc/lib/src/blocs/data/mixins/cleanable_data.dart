@@ -1,17 +1,21 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:async';
 
-import '../data_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gbx_bloc/gbx_bloc.dart';
 
 /// A Mixin for cleanable [DataBloc]s.
 ///
 /// Use it if you need to clean the data of your bloc.
-mixin CleanableData<T, E extends CleanData> on DataBloc<T> {
+mixin CleanableData<E extends CleanData, T> on DataBloc<T> {
   @override
-  void declareEvents() {
-    super.declareEvents();
-    conditionalOn<E>(
-      handler: handleCleanData,
-      conditional: canClean,
+  void declareWorkflows() {
+    super.declareWorkflows();
+    registerWorkflow<E>(
+      job: (event) => throw Exception("No data to return"),
+      canRun: canClean,
+      loadingType: LoadingType.cleaning,
+      onError: (_, __, ___, ____, _____, ______, emit) =>
+          emit(const UninitializedDataState()),
     );
   }
 

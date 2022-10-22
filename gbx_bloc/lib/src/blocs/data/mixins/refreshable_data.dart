@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc_state.dart';
@@ -6,13 +8,15 @@ import '../data_bloc.dart';
 /// A Mixin for refreshable [DataBloc]s.
 ///
 /// Use it if you need to refresh the data of your bloc.
-mixin RefreshableData<T, E extends RefreshData> on DataBloc<T> {
+mixin RefreshableData<E extends RefreshData, T> on DataBloc<T> {
   @override
-  void declareEvents() {
-    super.declareEvents();
-    conditionalOn<E>(
-      handler: handleRefreshData,
-      conditional: canRefresh,
+  void declareWorkflows() {
+    super.declareWorkflows();
+    registerWorkflow<E>(
+      job: fetchData,
+      canRun: canRefresh,
+      autoRecoverFromError: autoRecoverFromRefreshError,
+      loadingType: LoadingType.refreshing,
     );
   }
 
@@ -22,29 +26,7 @@ mixin RefreshableData<T, E extends RefreshData> on DataBloc<T> {
     return state is LoadedDataState<T>;
   }
 
-  /// Handles the [RefreshData] event.
-  Future<void> handleRefreshData(
-    E event,
-    Emitter<DataState<T>> emit,
-  ) async {
-    try {
-      final data = await runWithLoading(
-          runnable: () => fetchData(event),
-          loadingType: LoadingType.refreshing,
-          emit: emit);
-      emit(LoadedDataState(data: data));
-    } catch (e, trace) {
-      emit(
-        ErrorDataState(
-            data: state.dataOrNull(),
-            error: e,
-            stackTrace: trace,
-            loadingType: LoadingType.refreshing),
-      );
-    }
-  }
-
-  bool get autoRecoverFromRefreshError => false;
+  bool get autoRecoverFromRefreshError => true;
 }
 
 class RefreshData extends DataEvent {
