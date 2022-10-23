@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../bloc_state.dart';
 import '../data_bloc.dart';
 
@@ -13,7 +11,7 @@ mixin RefreshableData<E extends RefreshData, T> on DataBloc<T> {
   void declareWorkflows() {
     super.declareWorkflows();
     registerWorkflow<E>(
-      job: fetchData,
+      job: refreshData,
       canRun: canRefresh,
       autoRecoverFromError: autoRecoverFromRefreshError,
       loadingType: LoadingType.refreshing,
@@ -27,6 +25,8 @@ mixin RefreshableData<E extends RefreshData, T> on DataBloc<T> {
   }
 
   bool get autoRecoverFromRefreshError => true;
+
+  FutureOr<T> refreshData(E event, DataState initialState);
 }
 
 class RefreshData extends DataEvent {

@@ -29,7 +29,7 @@ abstract class IErrorState<T> extends IState {
 }
 
 enum LoadingType {
-  initializing,
+  fetching,
   refreshing,
   loadingMore,
   setting,

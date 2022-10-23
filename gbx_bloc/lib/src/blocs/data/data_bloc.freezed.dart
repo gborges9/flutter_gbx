@@ -254,7 +254,7 @@ class __$$LoadingDataStateCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$LoadingDataState<T> extends LoadingDataState<T> {
-  _$LoadingDataState({this.data, this.loadingType = LoadingType.initializing})
+  _$LoadingDataState({this.data, this.loadingType = LoadingType.fetching})
       : super._();
 
   @override
@@ -443,7 +443,7 @@ class _$ErrorDataState<T> extends ErrorDataState<T> {
       {this.data,
       this.error,
       this.stackTrace,
-      this.loadingType = LoadingType.initializing,
+      this.loadingType = LoadingType.fetching,
       this.temporary = false})
       : super._();
 

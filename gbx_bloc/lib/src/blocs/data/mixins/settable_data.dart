@@ -5,7 +5,7 @@ import '../data_bloc.dart';
 /// A Mixin for [DataBloc]s where you can set the data.
 ///
 /// Use it if you need to set the data of your bloc.
-mixin SettableData<E extends SetData<T>, T> on DataBloc<T> {
+mixin SettableData<E extends SetData, T> on DataBloc<T> {
   @override
   void declareWorkflows() {
     super.declareWorkflows();
@@ -26,7 +26,7 @@ mixin SettableData<E extends SetData<T>, T> on DataBloc<T> {
   }
 
   /// Sets the  data and return the new instance of it.
-  FutureOr<T> setData(E event);
+  FutureOr<T> setData(E event, DataState<T> initialState);
 
   bool get autoRecoverFromSetError => false;
 }

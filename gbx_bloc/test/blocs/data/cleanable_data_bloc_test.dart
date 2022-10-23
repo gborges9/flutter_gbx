@@ -1,15 +1,9 @@
-import 'dart:async';
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gbx_bloc/gbx_bloc.dart';
 
 class FakeCleanableDataBloc extends DataBloc with CleanableData {
   FakeCleanableDataBloc({super.initialData});
-  @override
-  FutureOr fetchData(DataEvent event) {
-    return 1;
-  }
 }
 
 void main() {

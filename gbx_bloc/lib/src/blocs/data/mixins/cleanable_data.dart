@@ -11,7 +11,7 @@ mixin CleanableData<E extends CleanData, T> on DataBloc<T> {
   void declareWorkflows() {
     super.declareWorkflows();
     registerWorkflow<E>(
-      job: (event) => throw Exception("No data to return"),
+      job: (_, __) => throw Exception("No data to return"),
       canRun: canClean,
       loadingType: LoadingType.cleaning,
       onError: (_, __, ___, ____, _____, ______, emit) =>

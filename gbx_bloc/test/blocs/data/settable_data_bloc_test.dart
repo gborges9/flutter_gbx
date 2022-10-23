@@ -11,12 +11,7 @@ class FakeSyncSettableDataBloc extends DataBloc with SettableData {
   FakeSyncSettableDataBloc({this.throwError = false, this.autoRecover = false});
 
   @override
-  FutureOr fetchData(DataEvent event) {
-    return 5;
-  }
-
-  @override
-  FutureOr setData(SetData event) {
+  FutureOr setData(SetData event, DataState initialState) {
     if (throwError) {
       throw Exception("error setting data");
     }
@@ -24,7 +19,7 @@ class FakeSyncSettableDataBloc extends DataBloc with SettableData {
   }
 
   @override
-  bool get autoRecoverOnSetError => autoRecover;
+  bool get autoRecoverFromSetError => autoRecover;
 }
 
 void main() {

@@ -13,10 +13,16 @@ typedef WorkflowErrorHandler<Event, Type> = FutureOr<void> Function(
 
 abstract class BaseDataBloc<Event, DataType>
     extends Bloc<Event, DataState<DataType>> with BlocHelper {
-  BaseDataBloc({DataType? initialData, this.alwaysEmitLoading = false})
-      : super(initialData != null
-            ? DataState.loaded(data: initialData, firstTimeLoaded: true)
-            : const DataState.uninitialized()) {
+  BaseDataBloc({
+    DataType? initialData,
+    DataState<DataType>? initialState,
+    this.alwaysEmitLoading = false,
+  })  : assert(initialData == null || initialState == null,
+            "Can't define both initialData and initialState!"),
+        super(initialState ??
+            (initialData != null
+                ? DataState.loaded(data: initialData, firstTimeLoaded: true)
+                : const DataState.uninitialized())) {
     declareWorkflows();
   }
 
@@ -51,7 +57,9 @@ abstract class BaseDataBloc<Event, DataType>
 
   /// Register a workflow for a [Event].
   void registerWorkflow<E extends Event>({
-    required FutureOr<DataType> Function(E event) job,
+    required FutureOr<DataType> Function(
+            E event, DataState<DataType> initialState)
+        job,
     required LoadingType loadingType,
     bool Function(E event, DataState<DataType> state)? canRun,
     WorkflowSuccessHandler<E, DataType>? onSuccess,
@@ -65,9 +73,12 @@ abstract class BaseDataBloc<Event, DataType>
           canRun?.call(event, currentState) ??
           currentState is! LoadingDataState,
       handler: (event, emit) async {
+        final initialState = state;
         try {
           final data = await runWithLoading(
-              runnable: () => job(event), loadingType: loadingType, emit: emit);
+              runnable: () => job(event, initialState),
+              loadingType: loadingType,
+              emit: emit);
           (onSuccess ?? _defaultSuccessHandler).call(event, data, emit);
         } catch (e, trace) {
           await (onError ?? _defaultErrorHandler).call(

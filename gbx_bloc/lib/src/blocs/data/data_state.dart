@@ -10,7 +10,7 @@ class DataState<T> with _$DataState<T> implements IState {
   @Implements<ILoadingState>()
   factory DataState.loading({
     T? data,
-    @Default(LoadingType.initializing) LoadingType loadingType,
+    @Default(LoadingType.fetching) LoadingType loadingType,
   }) = LoadingDataState<T>;
 
   @Implements<IErrorState>()
@@ -18,7 +18,7 @@ class DataState<T> with _$DataState<T> implements IState {
     T? data,
     dynamic error,
     StackTrace? stackTrace,
-    @Default(LoadingType.initializing) LoadingType loadingType,
+    @Default(LoadingType.fetching) LoadingType loadingType,
     @Default(false) temporary,
   }) = ErrorDataState<T>;
 

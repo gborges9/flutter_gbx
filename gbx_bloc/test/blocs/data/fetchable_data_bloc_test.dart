@@ -4,11 +4,11 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gbx_bloc/gbx_bloc.dart';
 
-class FakeSyncronousDataBloc extends DataBloc {
+class FakeSyncronousDataBloc extends DataBloc with FetchableData {
   bool throwError;
   FakeSyncronousDataBloc({super.initialData, this.throwError = false});
   @override
-  FutureOr<int> fetchData(DataEvent event) {
+  FutureOr<int> fetchData(DataEvent event, DataState initialState) {
     if (throwError) {
       throwError = false;
       throw Exception("Throwing error");
@@ -17,11 +17,11 @@ class FakeSyncronousDataBloc extends DataBloc {
   }
 }
 
-class FakeAsyncronousDataBloc extends DataBloc {
+class FakeAsyncronousDataBloc extends DataBloc with FetchableData {
   bool throwError;
   FakeAsyncronousDataBloc({super.initialData, this.throwError = false});
   @override
-  FutureOr<int> fetchData(DataEvent event) async {
+  FutureOr<int> fetchData(DataEvent event, DataState initialState) async {
     if (throwError) {
       throwError = false;
       throw Exception("Throwing error");

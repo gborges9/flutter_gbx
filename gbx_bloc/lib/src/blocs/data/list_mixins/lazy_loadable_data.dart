@@ -11,7 +11,7 @@ mixin LazyLoadable<E extends LoadMoreData, T extends Iterable> on DataBloc<T> {
   void declareWorkflows() {
     super.declareWorkflows();
     registerWorkflow<E>(
-      job: (event) => loadMoreData(event, state.dataOrNull()!),
+      job: loadMoreData,
       canRun: canLoadMore,
       autoRecoverFromError: true,
       loadingType: LoadingType.loadingMore,
@@ -26,7 +26,7 @@ mixin LazyLoadable<E extends LoadMoreData, T extends Iterable> on DataBloc<T> {
   }
 
   /// Load the data and return the resulting list
-  FutureOr<T> loadMoreData(E event, T oldList);
+  FutureOr<T> loadMoreData(E event, DataState<T> oldList);
 }
 
 class LoadMoreData extends DataEvent {

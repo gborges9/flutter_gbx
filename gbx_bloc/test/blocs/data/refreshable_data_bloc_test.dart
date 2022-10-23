@@ -13,15 +13,15 @@ class FakeSyncRefreshableDataBloc extends DataBloc with RefreshableData {
       {this.throwError = false, this.autoRecover = true});
 
   @override
-  FutureOr fetchData(DataEvent event) {
-    if (throwError) {
-      throw Exception("error fetching data");
-    }
-    return next ?? 0;
-  }
+  bool get autoRecoverFromRefreshError => autoRecover;
 
   @override
-  bool get autoRecoverFromRefreshError => autoRecover;
+  FutureOr refreshData(RefreshData event, DataState initialState) {
+    if (throwError) {
+      throw Exception("Error refreshing data!");
+    }
+    return 1;
+  }
 }
 
 void main() {
@@ -46,7 +46,7 @@ void main() {
       blocTest<FakeSyncRefreshableDataBloc, DataState>(
         "Should emit [LoadedState] when [LoadedState] and RefreshData",
         build: () => FakeSyncRefreshableDataBloc(),
-        seed: () => const DataState.loaded(data: 1),
+        seed: () => const DataState.loaded(data: 2),
         act: (bloc) => bloc.add(const RefreshData()),
         expect: () => [isA<LoadedDataState>()],
       );
@@ -54,7 +54,7 @@ void main() {
       blocTest<FakeSyncRefreshableDataBloc, DataState>(
         "Should emit [ErrorState] and [LoadedState] when [LoadedState] and RefreshData with error",
         build: () => FakeSyncRefreshableDataBloc(throwError: true),
-        seed: () => const LoadedDataState(data: 1),
+        seed: () => const LoadedDataState(data: 2),
         act: (bloc) => bloc.add(const RefreshData()),
         expect: () => [isA<ErrorDataState>(), isA<LoadedDataState>()],
       );
