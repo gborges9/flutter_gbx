@@ -56,7 +56,7 @@ void main() {
       blocTest(
         'emits [LoadedDataState] when initialized',
         build: () => FakeSyncronousDataBloc(),
-        act: (bloc) => bloc.add(const InitializeData()),
+        act: (bloc) => bloc.add(const FetchData()),
         expect: () => [
           isA<LoadedDataState>(),
         ],
@@ -65,7 +65,7 @@ void main() {
       blocTest(
         'emits [ErrorDataState] when initialized an error occurs while loading the data',
         build: () => FakeSyncronousDataBloc(throwError: true),
-        act: (bloc) => bloc.add(const InitializeData()),
+        act: (bloc) => bloc.add(const FetchData()),
         expect: () => [
           isA<ErrorDataState>(),
         ],
@@ -74,7 +74,7 @@ void main() {
       blocTest<DataBloc, DataState>(
         'emits [LoadedDataState] when initialized after an error occurs and loading succeded',
         build: () => FakeSyncronousDataBloc(),
-        act: (bloc) => bloc.add(const InitializeData()),
+        act: (bloc) => bloc.add(const FetchData()),
         seed: () => const DataState.error(),
         expect: () => [
           isA<LoadedDataState>(),
@@ -89,7 +89,7 @@ void main() {
       blocTest(
         'emits [LoadingDataState] and then [LoadedDataState] when initialized',
         build: () => FakeAsyncronousDataBloc(),
-        act: (bloc) => bloc.add(const InitializeData()),
+        act: (bloc) => bloc.add(const FetchData()),
         wait: const Duration(milliseconds: 100),
         expect: () => [
           isA<LoadingDataState>(),
@@ -99,7 +99,7 @@ void main() {
       blocTest(
         'emits [LoadingDataState] and then [ErrorDataState] when initialized and an error occurs while loading the data',
         build: () => FakeAsyncronousDataBloc(throwError: true),
-        act: (bloc) => bloc.add(const InitializeData()),
+        act: (bloc) => bloc.add(const FetchData()),
         expect: () => [
           isA<LoadingDataState>(),
           isA<ErrorDataState>(),
