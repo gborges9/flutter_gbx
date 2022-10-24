@@ -8,7 +8,7 @@ import '../data_bloc.dart';
 mixin FetchableData<E extends FetchData, T> on DataBloc<T> {
   @override
   void declareWorkflows() {
-    registerWorkflow<InitializeData>(
+    registerWorkflow<E>(
       job: fetchData,
       canRun: canFetch,
       loadingType: LoadingType.fetching,
@@ -18,12 +18,12 @@ mixin FetchableData<E extends FetchData, T> on DataBloc<T> {
     );
   }
 
-  bool canFetch(InitializeData event, DataState<T> state) {
+  bool canFetch(E event, DataState<T> state) {
     return state is UninitializedDataState || state is ErrorDataState;
   }
 
   /// Fetches the data for the Bloc
-  FutureOr<T> fetchData(DataEvent event, DataState<T> initialState);
+  FutureOr<T> fetchData(E event, DataState<T> initialState);
 
   bool get autoRecoverFromFetchError => false;
 }

@@ -1,70 +1,113 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gbx_core/gbx_core.dart';
-
-import '../blocs/bloc_state.dart';
 import '../blocs/index.dart';
 
-class DataBlocBuilder<B extends DataBloc, S extends DataState<T>, T>
-    extends StatelessWidget {
-  const DataBlocBuilder({
-    this.bloc,
-    super.key,
-    required this.builder,
-    this.loadedBuilder,
-    this.loadingBuilder,
-    this.uninitializedBuilder,
-    this.errorBuilder,
-    this.onError,
-    this.onDataLoaded,
-    this.listener,
-    this.initializeOnStart = false,
-  });
+typedef DataWidgetBuilder<S extends DataState> = Widget Function(
+    BuildContext context, S state);
+
+class DataBlocBuilder<B extends DataBloc<T>, T> extends StatelessWidget {
+  final DataWidgetBuilder<DataState<T>> builder;
+  final DataWidgetBuilder<LoadingDataState<T>>? loadingBuilder;
+  final DataWidgetBuilder<LoadedDataState<T>>? loadedBuilder;
+  final DataWidgetBuilder<ErrorDataState<T>>? errorBuilder;
+  final DataWidgetBuilder<UninitializedDataState<T>>? uninitializedBuilder;
+
+  /// Called when a persistent error state is emitted.
+  final void Function(ErrorDataState<T> errorState)? onError;
+
+  /// Called when a temporary error state is emitted.
+  final void Function(ErrorDataState<T> errorState)? onErrorNotification;
+
+  final void Function(LoadedDataState<T> loadedState)? onLoaded;
 
   final B? bloc;
-  final BlocWidgetBuilder<S> builder;
-  final Widget Function(BuildContext context, T data)? loadedBuilder;
-  final Widget Function(BuildContext context, T? data, LoadingType loadingType)?
-      loadingBuilder;
-  final WidgetBuilder? uninitializedBuilder;
-  final Widget Function(BuildContext context, T? data, dynamic error,
-      StackTrace? stackTrace, LoadingType loadingType)? errorBuilder;
-  final void Function(ErrorDataState<T> state)? onError;
-  final void Function(LoadedDataState<T> state)? onDataLoaded;
-  final BlocWidgetListener<DataState<T>>? listener;
 
-  final bool initializeOnStart;
+  /// Event to add to the bloc at the initState;
+  final DataEvent? initialEvent;
+
+  const DataBlocBuilder({
+    super.key,
+    required this.builder,
+    this.onError,
+    this.onErrorNotification,
+    this.onLoaded,
+    this.bloc,
+    this.loadingBuilder,
+    this.loadedBuilder,
+    this.errorBuilder,
+    this.uninitializedBuilder,
+    this.initialEvent,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final bloc = this.bloc ?? BlocProvider.of<B>(context);
-    if (initializeOnStart && bloc.state is UninitializedDataState) {
-      Log.i("Initializing $B");
-      (bloc).add(const InitializeData());
-    }
-    return BlocConsumer<StateStreamable<S>, S>(
-      bloc: bloc as StateStreamable<S>,
-      builder: (context, state) {
-        return state.when(
-              uninitialized: () => uninitializedBuilder?.call(context),
-              loading: (data, loadingType) =>
-                  loadingBuilder?.call(context, data, loadingType),
-              error: (data, error, stackTrace, loadingType, _) => errorBuilder
-                  ?.call(context, data, error, stackTrace, loadingType),
-              loaded: (data, _) => loadedBuilder?.call(context, data),
-            ) ??
-            builder(context, state);
-      },
-      listenWhen: (previous, current) =>
-          current is ErrorDataState || current is LoadedDataState,
-      listener: (context, state) {
-        state.mapOrNull(
-          error: (state) => onError?.call(state),
-          loaded: (state) => onDataLoaded?.call(state),
-        );
-
-        listener?.call(context, state);
-      },
+    final child = BlocConsumer<B, DataState<T>>(
+      bloc: bloc,
+      listenWhen: (previous, current) => true,
+      listener: listener,
+      buildWhen: (previous, current) => !current.isTemporary,
+      builder: (context, state) =>
+          state.map<Widget?>(
+            uninitialized: (state) =>
+                uninitializedBuilder?.call(context, state),
+            loading: (state) => loadingBuilder?.call(context, state),
+            error: (state) => errorBuilder?.call(context, state),
+            loaded: (state) => loadedBuilder?.call(context, state),
+          ) ??
+          builder(context, state),
     );
+
+    if (initialEvent != null) {
+      return _DataBlocInitialEventEmmiter<B>(
+        event: initialEvent!,
+        bloc: bloc ?? BlocProvider.of(context),
+        child: child,
+      );
+    }
+    return child;
+  }
+
+  void listener(BuildContext context, DataState<T> state) {
+    state.mapOrNull(
+      error: (state) {
+        if (state.isTemporary) {
+          onErrorNotification?.call(state);
+        } else {
+          onError?.call(state);
+        }
+      },
+      loaded: onLoaded,
+    );
+  }
+}
+
+class _DataBlocInitialEventEmmiter<B extends DataBloc> extends StatefulWidget {
+  const _DataBlocInitialEventEmmiter({
+    super.key,
+    required this.event,
+    required this.bloc,
+    required this.child,
+  });
+
+  final DataEvent event;
+  final Widget child;
+  final B bloc;
+
+  @override
+  State<StatefulWidget> createState() =>
+      __DataBlocInitialEventEmmiterState<B>();
+}
+
+class __DataBlocInitialEventEmmiterState<B extends DataBloc>
+    extends State<_DataBlocInitialEventEmmiter<B>> {
+  @override
+  void initState() {
+    widget.bloc.add(widget.event);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
   }
 }
