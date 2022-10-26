@@ -19,6 +19,11 @@ class ImageSource with _$ImageSource {
         asset: (path) => AssetImage(path), network: (url) => NetworkImage(url));
   }
 
+  String get urlOrPath => when(
+        asset: (path) => path,
+        network: (url) => url,
+      );
+
   factory ImageSource.fromJson(Map<String, dynamic> json) =>
       _$ImageSourceFromJson(json);
 }
