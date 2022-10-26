@@ -31,6 +31,7 @@ abstract class BaseDataBloc<Event, DataType>
   /// Base method to declare different workflows.
   ///
   /// Use this to call [registerWorkflow] with your events.
+  @mustCallSuper
   void declareWorkflows();
 
   /// Runs a task (usually a data operation).
