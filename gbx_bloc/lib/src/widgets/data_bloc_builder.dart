@@ -20,10 +20,13 @@ class DataBlocBuilder<B extends DataBloc<T>, T> extends StatelessWidget {
 
   final void Function(LoadedDataState<T> loadedState)? onLoaded;
 
+  final void Function(BuildContext context, DataState<T> state)? listener;
+
   final B? bloc;
 
   /// Event to add to the bloc at the initState;
   final DataEvent? initialEvent;
+  final bool provide;
 
   const DataBlocBuilder({
     super.key,
@@ -37,14 +40,16 @@ class DataBlocBuilder<B extends DataBloc<T>, T> extends StatelessWidget {
     this.errorBuilder,
     this.uninitializedBuilder,
     this.initialEvent,
+    this.provide = false,
+    this.listener,
   });
 
   @override
   Widget build(BuildContext context) {
-    final child = BlocConsumer<B, DataState<T>>(
+    Widget child = BlocConsumer<B, DataState<T>>(
       bloc: bloc,
       listenWhen: (previous, current) => true,
-      listener: listener,
+      listener: _listener,
       buildWhen: (previous, current) => !current.isTemporary,
       builder: (context, state) =>
           state.map<Widget?>(
@@ -58,16 +63,24 @@ class DataBlocBuilder<B extends DataBloc<T>, T> extends StatelessWidget {
     );
 
     if (initialEvent != null) {
-      return _DataBlocInitialEventEmmiter<B>(
+      child = _DataBlocInitialEventEmmiter<B>(
         event: initialEvent!,
         bloc: bloc ?? BlocProvider.of(context),
         child: child,
       );
     }
+
+    if (provide && bloc != null) {
+      child = BlocProvider<B>(
+        create: (context) => bloc!,
+        child: child,
+      );
+    }
+
     return child;
   }
 
-  void listener(BuildContext context, DataState<T> state) {
+  void _listener(BuildContext context, DataState<T> state) {
     state.mapOrNull(
       error: (state) {
         if (state.isTemporary) {
@@ -78,6 +91,7 @@ class DataBlocBuilder<B extends DataBloc<T>, T> extends StatelessWidget {
       },
       loaded: onLoaded,
     );
+    listener?.call(context, state);
   }
 }
 
@@ -100,14 +114,21 @@ class _DataBlocInitialEventEmmiter<B extends DataBloc> extends StatefulWidget {
 
 class __DataBlocInitialEventEmmiterState<B extends DataBloc>
     extends State<_DataBlocInitialEventEmmiter<B>> {
+  late B bloc;
+
   @override
   void initState() {
+    bloc = widget.bloc;
     widget.bloc.add(widget.event);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (bloc != widget.bloc) {
+      bloc = widget.bloc;
+      bloc.add(widget.event);
+    }
     return widget.child;
   }
 }
