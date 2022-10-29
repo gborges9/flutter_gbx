@@ -16,7 +16,7 @@ typedef LoadingStateBuilder<DataType> = LoadingDataState<DataType> Function(
 );
 
 abstract class BaseDataBloc<Event, DataType>
-    extends Bloc<Event, DataState<DataType>> with BlocHelper {
+    extends Bloc<Event, DataState<DataType>> {
   BaseDataBloc({
     DataType? initialData,
     DataState<DataType>? initialState,

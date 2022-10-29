@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gbx_bloc/src/blocs/bloc_helpers.dart';
 
 import '../../bloc_state.dart';
 import '../data_bloc.dart';
