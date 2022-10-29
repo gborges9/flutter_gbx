@@ -68,7 +68,7 @@ abstract class BaseDataBloc<Event, DataType>
     bool autoRecoverFromError = false,
   }) {
     assert(!autoRecoverFromError || onError == null,
-        "You cant define a custon error handler and autoRecoverFromError!");
+        "You cant define a custom error handler and autoRecoverFromError!");
     conditionalOn<E>(
       conditional: (event, currentState) =>
           canRun?.call(event, currentState) ??

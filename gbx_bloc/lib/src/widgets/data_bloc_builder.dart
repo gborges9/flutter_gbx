@@ -23,6 +23,7 @@ class DataBlocBuilder<B extends DataBloc<T>, T> extends StatelessWidget {
   final void Function(BuildContext context, DataState<T> state)? listener;
 
   final B? bloc;
+  final B Function(BuildContext context)? create;
 
   /// Event to add to the bloc at the initState;
   final DataEvent? initialEvent;
@@ -42,7 +43,9 @@ class DataBlocBuilder<B extends DataBloc<T>, T> extends StatelessWidget {
     this.initialEvent,
     this.provide = false,
     this.listener,
-  });
+    this.create,
+  }) : assert(bloc == null || create == null,
+            "Cant define both bloc and create params!");
 
   @override
   Widget build(BuildContext context) {
@@ -62,17 +65,9 @@ class DataBlocBuilder<B extends DataBloc<T>, T> extends StatelessWidget {
           builder(context, state),
     );
 
-    if (initialEvent != null) {
-      child = _DataBlocInitialEventEmmiter<B>(
-        event: initialEvent!,
-        bloc: bloc ?? BlocProvider.of(context),
-        child: child,
-      );
-    }
-
-    if (provide && bloc != null) {
+    if (create != null) {
       child = BlocProvider<B>(
-        create: (context) => bloc!,
+        create: create!,
         child: child,
       );
     }
@@ -92,43 +87,5 @@ class DataBlocBuilder<B extends DataBloc<T>, T> extends StatelessWidget {
       loaded: onLoaded,
     );
     listener?.call(context, state);
-  }
-}
-
-class _DataBlocInitialEventEmmiter<B extends DataBloc> extends StatefulWidget {
-  const _DataBlocInitialEventEmmiter({
-    super.key,
-    required this.event,
-    required this.bloc,
-    required this.child,
-  });
-
-  final DataEvent event;
-  final Widget child;
-  final B bloc;
-
-  @override
-  State<StatefulWidget> createState() =>
-      __DataBlocInitialEventEmmiterState<B>();
-}
-
-class __DataBlocInitialEventEmmiterState<B extends DataBloc>
-    extends State<_DataBlocInitialEventEmmiter<B>> {
-  late B bloc;
-
-  @override
-  void initState() {
-    bloc = widget.bloc;
-    widget.bloc.add(widget.event);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (bloc != widget.bloc) {
-      bloc = widget.bloc;
-      bloc.add(widget.event);
-    }
-    return widget.child;
   }
 }
