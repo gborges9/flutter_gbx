@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../bloc_state.dart';
@@ -19,6 +20,7 @@ mixin FetchableData<E extends FetchData, T> on DataBloc<T> {
           emit(LoadedDataState(data: data, firstTimeLoaded: true)),
       autoRecoverFromError: autoRecoverFromFetchError,
       loadingStateBuilder: buildFetchDataLoadingState,
+      transformer: fetchDataTransformer,
     );
   }
 
@@ -33,6 +35,9 @@ mixin FetchableData<E extends FetchData, T> on DataBloc<T> {
 
   @protected
   bool get autoRecoverFromFetchError => false;
+
+  @protected
+  EventTransformer<E>? get fetchDataTransformer => null;
 
   @protected
   LoadingDataState<T> buildFetchDataLoadingState(

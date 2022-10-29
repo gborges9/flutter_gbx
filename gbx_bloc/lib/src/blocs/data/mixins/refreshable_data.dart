@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
+
 import '../../bloc_state.dart';
 import '../data_bloc.dart';
 
@@ -15,6 +18,7 @@ mixin RefreshableData<E extends RefreshData, T> on DataBloc<T> {
       canRun: canRefresh,
       autoRecoverFromError: autoRecoverFromRefreshError,
       loadingType: LoadingType.refreshing,
+      transformer: refreshDataTransformer,
     );
   }
 
@@ -27,6 +31,9 @@ mixin RefreshableData<E extends RefreshData, T> on DataBloc<T> {
   bool get autoRecoverFromRefreshError => true;
 
   FutureOr<T> refreshData(E event, DataState initialState);
+
+  @protected
+  EventTransformer<E>? get refreshDataTransformer => null;
 }
 
 class RefreshData extends DataEvent {

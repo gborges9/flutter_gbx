@@ -78,10 +78,12 @@ abstract class BaseDataBloc<Event, DataType>
     WorkflowErrorHandler<E, DataType>? onError,
     bool autoRecoverFromError = false,
     LoadingStateBuilder<DataType>? loadingStateBuilder,
+    EventTransformer<E>? transformer,
   }) {
     assert(!autoRecoverFromError || onError == null,
         "You cant define a custom error handler and autoRecoverFromError!");
     conditionalOn<E>(
+      transformer: transformer,
       conditional: (event, currentState) =>
           canRun?.call(event, currentState) ??
           currentState is! LoadingDataState,

@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
+
 import '../../bloc_state.dart';
 import '../data_bloc.dart';
 
@@ -15,6 +18,7 @@ mixin LazyLoadable<E extends LoadMoreData, T extends Iterable> on DataBloc<T> {
       canRun: canLoadMore,
       autoRecoverFromError: true,
       loadingType: LoadingType.loadingMore,
+      transformer: loadMoreDataTransformer,
     );
   }
 
@@ -27,6 +31,9 @@ mixin LazyLoadable<E extends LoadMoreData, T extends Iterable> on DataBloc<T> {
 
   /// Load the data and return the resulting list
   FutureOr<T> loadMoreData(E event, DataState<T> oldList);
+
+  @protected
+  EventTransformer<E>? get loadMoreDataTransformer => null;
 }
 
 class LoadMoreData extends DataEvent {

@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
+
 import '../../bloc_state.dart';
 import '../data_bloc.dart';
 
@@ -14,6 +17,7 @@ mixin SettableData<E extends SetData, T> on DataBloc<T> {
       canRun: canSet,
       loadingType: LoadingType.setting,
       autoRecoverFromError: autoRecoverFromSetError,
+      transformer: setDataTransform,
     );
   }
 
@@ -29,6 +33,9 @@ mixin SettableData<E extends SetData, T> on DataBloc<T> {
   FutureOr<T> setData(E event, DataState<T> initialState);
 
   bool get autoRecoverFromSetError => false;
+
+  @protected
+  EventTransformer<E>? get setDataTransform => null;
 }
 
 class SetData<T> extends DataEvent {

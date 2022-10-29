@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gbx_bloc/gbx_bloc.dart';
 
@@ -16,6 +17,7 @@ mixin CleanableData<E extends CleanData, T> on DataBloc<T> {
       loadingType: LoadingType.cleaning,
       onError: (_, __, ___, ____, _____, ______, emit) =>
           emit(const UninitializedDataState()),
+      transformer: cleanDataTransformer,
     );
   }
 
@@ -24,6 +26,9 @@ mixin CleanableData<E extends CleanData, T> on DataBloc<T> {
   bool canClean(E event, DataState<T> state) {
     return state is LoadedDataState<T>;
   }
+
+  @protected
+  EventTransformer<E>? get cleanDataTransformer => null;
 
   /// Handles the [CleanData] event.
   ///

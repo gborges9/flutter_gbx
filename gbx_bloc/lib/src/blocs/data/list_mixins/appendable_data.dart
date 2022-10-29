@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc_state.dart';
@@ -15,6 +16,7 @@ mixin AppendableData<E extends AppendData, T extends Iterable> on DataBloc<T> {
     conditionalOn<E>(
       handler: handleAppendData,
       conditional: canAppend,
+      transformer: appendDataTransformer,
     );
   }
 
@@ -53,6 +55,9 @@ mixin AppendableData<E extends AppendData, T extends Iterable> on DataBloc<T> {
 
   /// Append the data and return the resulting list
   FutureOr<T> appendData(E event, T oldList);
+
+  @protected
+  EventTransformer<E>? get appendDataTransformer => null;
 }
 
 class AppendData<T> extends DataEvent {

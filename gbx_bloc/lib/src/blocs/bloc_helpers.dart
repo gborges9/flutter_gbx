@@ -9,11 +9,15 @@ mixin BlocHelper<E, S> on Bloc<E, S> {
   void conditionalOn<Ev extends E>({
     required EventHandler<Ev, S> handler,
     required HandlerConditional<Ev, S> conditional,
+    Stream<Ev> Function(Stream<Ev>, Stream<Ev> Function(Ev))? transformer,
   }) {
-    on<Ev>((event, emit) {
-      if (conditional(event, state)) {
-        return handler(event, emit);
-      }
-    });
+    on<Ev>(
+      (event, emit) {
+        if (conditional(event, state)) {
+          return handler(event, emit);
+        }
+      },
+      transformer: transformer,
+    );
   }
 }
