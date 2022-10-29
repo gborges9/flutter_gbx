@@ -10,6 +10,10 @@ typedef WorkflowErrorHandler<Event, Type> = FutureOr<void> Function(
     StackTrace stackTrace,
     LoadingType loadingType,
     Emitter<DataState<Type>> emit);
+typedef LoadingStateBuilder<DataType> = LoadingDataState<DataType> Function(
+  DataState<DataType> initialState,
+  LoadingType loadingType,
+);
 
 abstract class BaseDataBloc<Event, DataType>
     extends Bloc<Event, DataState<DataType>> with BlocHelper {
@@ -32,6 +36,7 @@ abstract class BaseDataBloc<Event, DataType>
   ///
   /// Use this to call [registerWorkflow] with your events.
   @mustCallSuper
+  @protected
   void declareWorkflows();
 
   /// Runs a task (usually a data operation).
@@ -42,21 +47,27 @@ abstract class BaseDataBloc<Event, DataType>
     required FutureOr<V> Function() runnable,
     required LoadingType loadingType,
     required Emitter<DataState<DataType>> emit,
-    DataType? loadingData,
+    LoadingStateBuilder<DataType>? loadingBuilder,
   }) async {
     final futureOrData = runnable();
     if (!alwaysEmitLoading && futureOrData is! Future) {
       return futureOrData;
     }
 
-    emit(
-      LoadingDataState(
-          data: loadingData ?? state.dataOrNull(), loadingType: loadingType),
-    );
+    emit((loadingBuilder ?? defaultLoadingBuilder).call(state, loadingType));
     return await futureOrData;
   }
 
+  @protected
+  LoadingDataState<DataType> defaultLoadingBuilder(
+    DataState<DataType> initialState,
+    LoadingType loadingType,
+  ) =>
+      LoadingDataState(
+          data: initialState.dataOrNull(), loadingType: loadingType);
+
   /// Register a workflow for a [Event].
+  @protected
   void registerWorkflow<E extends Event>({
     required FutureOr<DataType> Function(
             E event, DataState<DataType> initialState)
@@ -66,6 +77,7 @@ abstract class BaseDataBloc<Event, DataType>
     WorkflowSuccessHandler<E, DataType>? onSuccess,
     WorkflowErrorHandler<E, DataType>? onError,
     bool autoRecoverFromError = false,
+    LoadingStateBuilder<DataType>? loadingStateBuilder,
   }) {
     assert(!autoRecoverFromError || onError == null,
         "You cant define a custom error handler and autoRecoverFromError!");
@@ -77,9 +89,11 @@ abstract class BaseDataBloc<Event, DataType>
         final initialState = state;
         try {
           final data = await runWithLoading(
-              runnable: () => job(event, initialState),
-              loadingType: loadingType,
-              emit: emit);
+            runnable: () => job(event, initialState),
+            loadingType: loadingType,
+            emit: emit,
+            loadingBuilder: loadingStateBuilder,
+          );
           (onSuccess ?? _defaultSuccessHandler).call(event, data, emit);
         } catch (e, trace) {
           await (onError ?? _defaultErrorHandler).call(

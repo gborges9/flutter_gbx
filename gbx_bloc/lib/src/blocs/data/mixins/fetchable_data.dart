@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
+
 import '../../bloc_state.dart';
 import '../data_bloc.dart';
 
@@ -8,6 +10,7 @@ import '../data_bloc.dart';
 mixin FetchableData<E extends FetchData, T> on DataBloc<T> {
   @override
   void declareWorkflows() {
+    super.declareWorkflows();
     registerWorkflow<E>(
       job: fetchData,
       canRun: canFetch,
@@ -15,17 +18,26 @@ mixin FetchableData<E extends FetchData, T> on DataBloc<T> {
       onSuccess: (event, data, emit) =>
           emit(LoadedDataState(data: data, firstTimeLoaded: true)),
       autoRecoverFromError: autoRecoverFromFetchError,
+      loadingStateBuilder: buildFetchDataLoadingState,
     );
   }
 
+  @protected
   bool canFetch(E event, DataState<T> state) {
     return state is UninitializedDataState || state is ErrorDataState;
   }
 
   /// Fetches the data for the Bloc
+  @protected
   FutureOr<T> fetchData(E event, DataState<T> initialState);
 
+  @protected
   bool get autoRecoverFromFetchError => false;
+
+  @protected
+  LoadingDataState<T> buildFetchDataLoadingState(
+          DataState<T> initialState, LoadingType loadingType) =>
+      LoadingDataState(data: null, loadingType: LoadingType.fetching);
 }
 
 class FetchData extends DataEvent {

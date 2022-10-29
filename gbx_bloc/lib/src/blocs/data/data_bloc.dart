@@ -16,5 +16,6 @@ abstract class DataBloc<T> extends BaseDataBloc<DataEvent, T> {
 
   @override
   @mustCallSuper
+  @protected
   void declareWorkflows() {}
 }

@@ -36,7 +36,6 @@ mixin AppendableData<E extends AppendData, T extends Iterable> on DataBloc<T> {
         runnable: () => appendData(event, initialData),
         loadingType: LoadingType.appending,
         emit: emit,
-        loadingData: initialData,
       );
       emit(LoadedDataState(data: data));
     } catch (e, trace) {
