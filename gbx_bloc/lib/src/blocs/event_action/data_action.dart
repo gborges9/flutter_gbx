@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:gbx_bloc/gbx_bloc.dart';
-import 'package:gbx_bloc/src/blocs/event_action/event_action.dart';
 
 class DataAction<Event extends DataEvent, T>
     extends EventAction<Event, DataState<T>> {
