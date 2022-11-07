@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BlocDependencyProvider extends StatelessWidget {
   final List<Dependencies> dependencies;
   final DIOption? diOption;
-  final WidgetBuilder builder;
+  final DependencyWidgetBuilder builder;
   final Widget? onLoading;
   final IDependencyStore? customStore;
 
@@ -24,7 +24,7 @@ class BlocDependencyProvider extends StatelessWidget {
   }) : assert(diOption == null || customStore == null,
             "You can't provide a diOption and a custom store at the same time!");
 
-  Widget wrappedChildBuilder(BuildContext context) {
+  Widget wrappedChildBuilder(BuildContext context, bool hasLoaded) {
     List<BlocProvider> providers = [];
 
     for (var dependency in dependencies) {
@@ -34,10 +34,11 @@ class BlocDependencyProvider extends StatelessWidget {
     }
 
     if (providers.isNotEmpty) {
-      return MultiBlocProvider(providers: providers, child: builder(context));
+      return MultiBlocProvider(
+          providers: providers, child: builder(context, hasLoaded));
     }
 
-    return builder(context);
+    return builder(context, hasLoaded);
   }
 
   @override
