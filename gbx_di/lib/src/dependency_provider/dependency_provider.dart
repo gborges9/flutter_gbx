@@ -40,7 +40,6 @@ class _DependencyProviderState extends State<DependencyProvider> {
   }
 
   Future<bool> injectDependencies() async {
-    print("=========== INJECTING ============");
     if (!Injector.isInitialized) {
       widget.customStore != null
           ? Injector.setCustomDiStore(widget.customStore!)
