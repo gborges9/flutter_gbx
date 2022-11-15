@@ -5,7 +5,9 @@ extension ListExtension<T> on List<T> {
       newList.add(element);
       newList.add(item);
     });
-    newList.removeLast();
+    if (newList.isNotEmpty) {
+      newList.removeLast();
+    }
     return newList;
   }
 
