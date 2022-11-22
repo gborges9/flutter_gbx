@@ -75,7 +75,7 @@ class MyAppDependencies extends AppDependencies{
 ## Injecting dependencies
 Once you have your dependencies objects, you have 2 main options to inject them, the first one is to call `inject` manually at any moment (usually in the main method, before runApp), the second is to use the `DependencyProvider` widget:
 ```dart
-BlocDependencyProvider(
+DependencyProvider(
     // customStore: ..., // Optional, uses a custom dependency store
     // onLoading: ..., // Optional, Widget to show while dependencies are still loading
     // loadingOptimized: ..., // Optional, if true, will call the builder even when the dependency is still loading
