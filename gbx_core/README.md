@@ -1,39 +1,48 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+# gbx_core
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+The core of the flutter_gbx package collection, this package contains
+many classes to help you develop a better, scalable apps using the clean
+code architecture.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+To install the package, add it to the pubspec yaml under dependencies:
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+gbx_core:
+    git:
+      url: https://github.com/GB0307/flutter_gbx
+      path: gbx_core
 ```
 
-## Additional information
+Attention: This package is under active development and doesn`t have a stable 
+release yet, use it with caution.
+## Usages - UseCase
+### BaseUseCase
+```dart
+class MyUseCase extends BaseUseCase<MyReturnType, MyParams> {
+  MyReturnType call({required MyParams params}){
+      // TODO: Do something
+  }
+}
+```
+### UseCase
+```dart
+class MyFutureUseCase extends BaseUseCase<MyReturnType, MyParams> {
+  Future<MyReturnType> call({required MyParams params}) async {
+      // TODO: Do something
+  }
+}
+```
+### StreamUseCase
+```dart
+class MyStreamUseCase extends BaseUseCase<MyReturnType, MyParams> {
+  Stream<MyReturnType> call({required MyParams params}) async* {
+      // TODO: Do something
+  }
+}
+```
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+## Usages - Logger
+UNDER CONSTRUCTION
