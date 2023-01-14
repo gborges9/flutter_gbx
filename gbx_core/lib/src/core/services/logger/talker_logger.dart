@@ -4,14 +4,15 @@ import 'logger.dart';
 
 class TalkerLoggerImpl extends ILogger {
   late final Talker _talker;
-  
-   Talker get talker => _talker;
+  late final TalkerLogger _logger;
+
+  Talker get talker => _talker;
+  TalkerLogger get logger => _logger;
 
   TalkerLoggerImpl([List<TalkerObserver> observers = const []]) {
-    _talker = Talker(
-      loggerOutput: debugPrint,
-      observers: observers,
-    );
+    _logger = TalkerLogger();
+    _talker =
+        Talker(logger: _logger, observers: observers, loggerOutput: debugPrint);
   }
 
   @override

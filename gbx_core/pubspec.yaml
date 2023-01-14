@@ -1,6 +1,6 @@
 name: gbx_core
 description: A new Flutter package project.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/GB0307/flutter_gbx
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  talker: ^2.0.0+1
+  talker: ^2.2.1
   freezed_annotation: ^2.1.0
   dartz: ^0.10.1
 
