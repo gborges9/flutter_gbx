@@ -7,7 +7,7 @@ import 'dependency_store_factory.dart';
 class HolderDependencyStore implements IDependencyStore {
   IDependencyStore? _diStore;
 
-  static const _defaultDiOption = DIOption.getIt;
+  static const _defaultDiOption = DIOption.Injector;
 
   IDependencyStore get diStore {
     if (_diStore == null) {
