@@ -53,7 +53,7 @@ class InjectorDependencyStore extends IDependencyStore {
   void lazyRegister<T extends Object>(DependencyFactory<T> factoryFunc,
           {String? instanceName}) =>
       injector.register(
-        Factory.provider(factoryFunc),
+        Factory.singleton(factoryFunc),
         dependencyName: instanceName ?? "",
       );
 
@@ -62,7 +62,7 @@ class InjectorDependencyStore extends IDependencyStore {
           DependencyFactory<Future<T>> factoryFunc,
           {String? instanceName}) =>
       injector.register(
-        Factory.provider(factoryFunc),
+        Factory.singleton(factoryFunc),
         dependencyName: instanceName ?? "",
       );
 }
