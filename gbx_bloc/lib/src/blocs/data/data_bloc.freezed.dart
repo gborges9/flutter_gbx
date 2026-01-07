@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'data_bloc.dart';
 
@@ -12,7 +12,7 @@ part of 'data_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$DataState<T> {
@@ -90,28 +90,36 @@ class _$DataStateCopyWithImpl<T, $Res, $Val extends DataState<T>>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
-abstract class _$$UninitializedDataStateCopyWith<T, $Res> {
-  factory _$$UninitializedDataStateCopyWith(_$UninitializedDataState<T> value,
-          $Res Function(_$UninitializedDataState<T>) then) =
-      __$$UninitializedDataStateCopyWithImpl<T, $Res>;
+abstract class _$$UninitializedDataStateImplCopyWith<T, $Res> {
+  factory _$$UninitializedDataStateImplCopyWith(
+          _$UninitializedDataStateImpl<T> value,
+          $Res Function(_$UninitializedDataStateImpl<T>) then) =
+      __$$UninitializedDataStateImplCopyWithImpl<T, $Res>;
 }
 
 /// @nodoc
-class __$$UninitializedDataStateCopyWithImpl<T, $Res>
-    extends _$DataStateCopyWithImpl<T, $Res, _$UninitializedDataState<T>>
-    implements _$$UninitializedDataStateCopyWith<T, $Res> {
-  __$$UninitializedDataStateCopyWithImpl(_$UninitializedDataState<T> _value,
-      $Res Function(_$UninitializedDataState<T>) _then)
+class __$$UninitializedDataStateImplCopyWithImpl<T, $Res>
+    extends _$DataStateCopyWithImpl<T, $Res, _$UninitializedDataStateImpl<T>>
+    implements _$$UninitializedDataStateImplCopyWith<T, $Res> {
+  __$$UninitializedDataStateImplCopyWithImpl(
+      _$UninitializedDataStateImpl<T> _value,
+      $Res Function(_$UninitializedDataStateImpl<T>) _then)
       : super(_value, _then);
+
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
-class _$UninitializedDataState<T> extends UninitializedDataState<T> {
-  const _$UninitializedDataState() : super._();
+class _$UninitializedDataStateImpl<T> extends UninitializedDataState<T> {
+  const _$UninitializedDataStateImpl() : super._();
 
   @override
   String toString() {
@@ -119,10 +127,10 @@ class _$UninitializedDataState<T> extends UninitializedDataState<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UninitializedDataState<T>);
+            other is _$UninitializedDataStateImpl<T>);
   }
 
   @override
@@ -211,34 +219,36 @@ class _$UninitializedDataState<T> extends UninitializedDataState<T> {
 
 abstract class UninitializedDataState<T> extends DataState<T>
     implements IUninitialiazedState {
-  const factory UninitializedDataState() = _$UninitializedDataState<T>;
+  const factory UninitializedDataState() = _$UninitializedDataStateImpl<T>;
   const UninitializedDataState._() : super._();
 }
 
 /// @nodoc
-abstract class _$$LoadingDataStateCopyWith<T, $Res> {
-  factory _$$LoadingDataStateCopyWith(_$LoadingDataState<T> value,
-          $Res Function(_$LoadingDataState<T>) then) =
-      __$$LoadingDataStateCopyWithImpl<T, $Res>;
+abstract class _$$LoadingDataStateImplCopyWith<T, $Res> {
+  factory _$$LoadingDataStateImplCopyWith(_$LoadingDataStateImpl<T> value,
+          $Res Function(_$LoadingDataStateImpl<T>) then) =
+      __$$LoadingDataStateImplCopyWithImpl<T, $Res>;
   @useResult
   $Res call({T? data, LoadingType loadingType});
 }
 
 /// @nodoc
-class __$$LoadingDataStateCopyWithImpl<T, $Res>
-    extends _$DataStateCopyWithImpl<T, $Res, _$LoadingDataState<T>>
-    implements _$$LoadingDataStateCopyWith<T, $Res> {
-  __$$LoadingDataStateCopyWithImpl(
-      _$LoadingDataState<T> _value, $Res Function(_$LoadingDataState<T>) _then)
+class __$$LoadingDataStateImplCopyWithImpl<T, $Res>
+    extends _$DataStateCopyWithImpl<T, $Res, _$LoadingDataStateImpl<T>>
+    implements _$$LoadingDataStateImplCopyWith<T, $Res> {
+  __$$LoadingDataStateImplCopyWithImpl(_$LoadingDataStateImpl<T> _value,
+      $Res Function(_$LoadingDataStateImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? data = freezed,
     Object? loadingType = null,
   }) {
-    return _then(_$LoadingDataState<T>(
+    return _then(_$LoadingDataStateImpl<T>(
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -253,8 +263,8 @@ class __$$LoadingDataStateCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$LoadingDataState<T> extends LoadingDataState<T> {
-  _$LoadingDataState({this.data, this.loadingType = LoadingType.fetching})
+class _$LoadingDataStateImpl<T> extends LoadingDataState<T> {
+  _$LoadingDataStateImpl({this.data, this.loadingType = LoadingType.fetching})
       : super._();
 
   @override
@@ -269,10 +279,10 @@ class _$LoadingDataState<T> extends LoadingDataState<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoadingDataState<T> &&
+            other is _$LoadingDataStateImpl<T> &&
             const DeepCollectionEquality().equals(other.data, data) &&
             (identical(other.loadingType, loadingType) ||
                 other.loadingType == loadingType));
@@ -282,11 +292,13 @@ class _$LoadingDataState<T> extends LoadingDataState<T> {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(data), loadingType);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoadingDataStateCopyWith<T, _$LoadingDataState<T>> get copyWith =>
-      __$$LoadingDataStateCopyWithImpl<T, _$LoadingDataState<T>>(
+  _$$LoadingDataStateImplCopyWith<T, _$LoadingDataStateImpl<T>> get copyWith =>
+      __$$LoadingDataStateImplCopyWithImpl<T, _$LoadingDataStateImpl<T>>(
           this, _$identity);
 
   @override
@@ -373,21 +385,24 @@ class _$LoadingDataState<T> extends LoadingDataState<T> {
 abstract class LoadingDataState<T> extends DataState<T>
     implements ILoadingState<dynamic> {
   factory LoadingDataState({final T? data, final LoadingType loadingType}) =
-      _$LoadingDataState<T>;
+      _$LoadingDataStateImpl<T>;
   LoadingDataState._() : super._();
 
   T? get data;
   LoadingType get loadingType;
-  @JsonKey(ignore: true)
-  _$$LoadingDataStateCopyWith<T, _$LoadingDataState<T>> get copyWith =>
+
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoadingDataStateImplCopyWith<T, _$LoadingDataStateImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErrorDataStateCopyWith<T, $Res> {
-  factory _$$ErrorDataStateCopyWith(
-          _$ErrorDataState<T> value, $Res Function(_$ErrorDataState<T>) then) =
-      __$$ErrorDataStateCopyWithImpl<T, $Res>;
+abstract class _$$ErrorDataStateImplCopyWith<T, $Res> {
+  factory _$$ErrorDataStateImplCopyWith(_$ErrorDataStateImpl<T> value,
+          $Res Function(_$ErrorDataStateImpl<T>) then) =
+      __$$ErrorDataStateImplCopyWithImpl<T, $Res>;
   @useResult
   $Res call(
       {T? data,
@@ -398,28 +413,30 @@ abstract class _$$ErrorDataStateCopyWith<T, $Res> {
 }
 
 /// @nodoc
-class __$$ErrorDataStateCopyWithImpl<T, $Res>
-    extends _$DataStateCopyWithImpl<T, $Res, _$ErrorDataState<T>>
-    implements _$$ErrorDataStateCopyWith<T, $Res> {
-  __$$ErrorDataStateCopyWithImpl(
-      _$ErrorDataState<T> _value, $Res Function(_$ErrorDataState<T>) _then)
+class __$$ErrorDataStateImplCopyWithImpl<T, $Res>
+    extends _$DataStateCopyWithImpl<T, $Res, _$ErrorDataStateImpl<T>>
+    implements _$$ErrorDataStateImplCopyWith<T, $Res> {
+  __$$ErrorDataStateImplCopyWithImpl(_$ErrorDataStateImpl<T> _value,
+      $Res Function(_$ErrorDataStateImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? data = freezed,
-    Object? error = null,
+    Object? error = freezed,
     Object? stackTrace = freezed,
     Object? loadingType = null,
-    Object? temporary = null,
+    Object? temporary = freezed,
   }) {
-    return _then(_$ErrorDataState<T>(
+    return _then(_$ErrorDataStateImpl<T>(
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T?,
-      error: null == error
+      error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as dynamic,
@@ -431,15 +448,15 @@ class __$$ErrorDataStateCopyWithImpl<T, $Res>
           ? _value.loadingType
           : loadingType // ignore: cast_nullable_to_non_nullable
               as LoadingType,
-      temporary: null == temporary ? _value.temporary : temporary,
+      temporary: freezed == temporary ? _value.temporary! : temporary,
     ));
   }
 }
 
 /// @nodoc
 
-class _$ErrorDataState<T> extends ErrorDataState<T> {
-  const _$ErrorDataState(
+class _$ErrorDataStateImpl<T> extends ErrorDataState<T> {
+  const _$ErrorDataStateImpl(
       {this.data,
       this.error,
       this.stackTrace,
@@ -466,10 +483,10 @@ class _$ErrorDataState<T> extends ErrorDataState<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorDataState<T> &&
+            other is _$ErrorDataStateImpl<T> &&
             const DeepCollectionEquality().equals(other.data, data) &&
             const DeepCollectionEquality().equals(other.error, error) &&
             (identical(other.stackTrace, stackTrace) ||
@@ -488,11 +505,14 @@ class _$ErrorDataState<T> extends ErrorDataState<T> {
       loadingType,
       const DeepCollectionEquality().hash(temporary));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorDataStateCopyWith<T, _$ErrorDataState<T>> get copyWith =>
-      __$$ErrorDataStateCopyWithImpl<T, _$ErrorDataState<T>>(this, _$identity);
+  _$$ErrorDataStateImplCopyWith<T, _$ErrorDataStateImpl<T>> get copyWith =>
+      __$$ErrorDataStateImplCopyWithImpl<T, _$ErrorDataStateImpl<T>>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -582,7 +602,7 @@ abstract class ErrorDataState<T> extends DataState<T>
       final dynamic error,
       final StackTrace? stackTrace,
       final LoadingType loadingType,
-      final dynamic temporary}) = _$ErrorDataState<T>;
+      final dynamic temporary}) = _$ErrorDataStateImpl<T>;
   const ErrorDataState._() : super._();
 
   T? get data;
@@ -590,36 +610,41 @@ abstract class ErrorDataState<T> extends DataState<T>
   StackTrace? get stackTrace;
   LoadingType get loadingType;
   dynamic get temporary;
-  @JsonKey(ignore: true)
-  _$$ErrorDataStateCopyWith<T, _$ErrorDataState<T>> get copyWith =>
+
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ErrorDataStateImplCopyWith<T, _$ErrorDataStateImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LoadedDataStateCopyWith<T, $Res> {
-  factory _$$LoadedDataStateCopyWith(_$LoadedDataState<T> value,
-          $Res Function(_$LoadedDataState<T>) then) =
-      __$$LoadedDataStateCopyWithImpl<T, $Res>;
+abstract class _$$LoadedDataStateImplCopyWith<T, $Res> {
+  factory _$$LoadedDataStateImplCopyWith(_$LoadedDataStateImpl<T> value,
+          $Res Function(_$LoadedDataStateImpl<T>) then) =
+      __$$LoadedDataStateImplCopyWithImpl<T, $Res>;
   @useResult
   $Res call({T data, bool firstTimeLoaded});
 }
 
 /// @nodoc
-class __$$LoadedDataStateCopyWithImpl<T, $Res>
-    extends _$DataStateCopyWithImpl<T, $Res, _$LoadedDataState<T>>
-    implements _$$LoadedDataStateCopyWith<T, $Res> {
-  __$$LoadedDataStateCopyWithImpl(
-      _$LoadedDataState<T> _value, $Res Function(_$LoadedDataState<T>) _then)
+class __$$LoadedDataStateImplCopyWithImpl<T, $Res>
+    extends _$DataStateCopyWithImpl<T, $Res, _$LoadedDataStateImpl<T>>
+    implements _$$LoadedDataStateImplCopyWith<T, $Res> {
+  __$$LoadedDataStateImplCopyWithImpl(_$LoadedDataStateImpl<T> _value,
+      $Res Function(_$LoadedDataStateImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = null,
+    Object? data = freezed,
     Object? firstTimeLoaded = null,
   }) {
-    return _then(_$LoadedDataState<T>(
-      data: null == data
+    return _then(_$LoadedDataStateImpl<T>(
+      data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T,
@@ -633,8 +658,9 @@ class __$$LoadedDataStateCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$LoadedDataState<T> extends LoadedDataState<T> {
-  const _$LoadedDataState({required this.data, this.firstTimeLoaded = false})
+class _$LoadedDataStateImpl<T> extends LoadedDataState<T> {
+  const _$LoadedDataStateImpl(
+      {required this.data, this.firstTimeLoaded = false})
       : super._();
 
   @override
@@ -649,10 +675,10 @@ class _$LoadedDataState<T> extends LoadedDataState<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoadedDataState<T> &&
+            other is _$LoadedDataStateImpl<T> &&
             const DeepCollectionEquality().equals(other.data, data) &&
             (identical(other.firstTimeLoaded, firstTimeLoaded) ||
                 other.firstTimeLoaded == firstTimeLoaded));
@@ -662,11 +688,13 @@ class _$LoadedDataState<T> extends LoadedDataState<T> {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(data), firstTimeLoaded);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoadedDataStateCopyWith<T, _$LoadedDataState<T>> get copyWith =>
-      __$$LoadedDataStateCopyWithImpl<T, _$LoadedDataState<T>>(
+  _$$LoadedDataStateImplCopyWith<T, _$LoadedDataStateImpl<T>> get copyWith =>
+      __$$LoadedDataStateImplCopyWithImpl<T, _$LoadedDataStateImpl<T>>(
           this, _$identity);
 
   @override
@@ -754,12 +782,15 @@ abstract class LoadedDataState<T> extends DataState<T>
     implements ILoadedState<dynamic> {
   const factory LoadedDataState(
       {required final T data,
-      final bool firstTimeLoaded}) = _$LoadedDataState<T>;
+      final bool firstTimeLoaded}) = _$LoadedDataStateImpl<T>;
   const LoadedDataState._() : super._();
 
   T get data;
   bool get firstTimeLoaded;
-  @JsonKey(ignore: true)
-  _$$LoadedDataStateCopyWith<T, _$LoadedDataState<T>> get copyWith =>
+
+  /// Create a copy of DataState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoadedDataStateImplCopyWith<T, _$LoadedDataStateImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

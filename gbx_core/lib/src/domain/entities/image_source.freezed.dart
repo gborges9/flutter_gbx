@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'image_source.dart';
 
@@ -12,7 +12,7 @@ part of 'image_source.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ImageSource _$ImageSourceFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
@@ -37,8 +37,8 @@ mixin _$ImageSource {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? asset,
-    TResult Function(String url)? network,
+    TResult? Function(String path)? asset,
+    TResult? Function(String url)? network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,8 +56,8 @@ mixin _$ImageSource {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AssetImageSource value)? asset,
-    TResult Function(NetworkImageSource value)? network,
+    TResult? Function(AssetImageSource value)? asset,
+    TResult? Function(NetworkImageSource value)? network,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,6 +67,8 @@ mixin _$ImageSource {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  /// Serializes this ImageSource to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
@@ -74,43 +76,49 @@ mixin _$ImageSource {
 abstract class $ImageSourceCopyWith<$Res> {
   factory $ImageSourceCopyWith(
           ImageSource value, $Res Function(ImageSource) then) =
-      _$ImageSourceCopyWithImpl<$Res>;
+      _$ImageSourceCopyWithImpl<$Res, ImageSource>;
 }
 
 /// @nodoc
-class _$ImageSourceCopyWithImpl<$Res> implements $ImageSourceCopyWith<$Res> {
+class _$ImageSourceCopyWithImpl<$Res, $Val extends ImageSource>
+    implements $ImageSourceCopyWith<$Res> {
   _$ImageSourceCopyWithImpl(this._value, this._then);
 
-  final ImageSource _value;
   // ignore: unused_field
-  final $Res Function(ImageSource) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ImageSource
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
-abstract class _$$AssetImageSourceCopyWith<$Res> {
-  factory _$$AssetImageSourceCopyWith(
-          _$AssetImageSource value, $Res Function(_$AssetImageSource) then) =
-      __$$AssetImageSourceCopyWithImpl<$Res>;
+abstract class _$$AssetImageSourceImplCopyWith<$Res> {
+  factory _$$AssetImageSourceImplCopyWith(_$AssetImageSourceImpl value,
+          $Res Function(_$AssetImageSourceImpl) then) =
+      __$$AssetImageSourceImplCopyWithImpl<$Res>;
+  @useResult
   $Res call({String path});
 }
 
 /// @nodoc
-class __$$AssetImageSourceCopyWithImpl<$Res>
-    extends _$ImageSourceCopyWithImpl<$Res>
-    implements _$$AssetImageSourceCopyWith<$Res> {
-  __$$AssetImageSourceCopyWithImpl(
-      _$AssetImageSource _value, $Res Function(_$AssetImageSource) _then)
-      : super(_value, (v) => _then(v as _$AssetImageSource));
+class __$$AssetImageSourceImplCopyWithImpl<$Res>
+    extends _$ImageSourceCopyWithImpl<$Res, _$AssetImageSourceImpl>
+    implements _$$AssetImageSourceImplCopyWith<$Res> {
+  __$$AssetImageSourceImplCopyWithImpl(_$AssetImageSourceImpl _value,
+      $Res Function(_$AssetImageSourceImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$AssetImageSource get _value => super._value as _$AssetImageSource;
-
+  /// Create a copy of ImageSource
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? path = freezed,
+    Object? path = null,
   }) {
-    return _then(_$AssetImageSource(
-      path == freezed
+    return _then(_$AssetImageSourceImpl(
+      null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
@@ -121,13 +129,13 @@ class __$$AssetImageSourceCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 @ImageSourceConverter()
-class _$AssetImageSource extends AssetImageSource {
-  const _$AssetImageSource(this.path, {final String? $type})
+class _$AssetImageSourceImpl extends AssetImageSource {
+  const _$AssetImageSourceImpl(this.path, {final String? $type})
       : $type = $type ?? 'asset',
         super._();
 
-  factory _$AssetImageSource.fromJson(Map<String, dynamic> json) =>
-      _$$AssetImageSourceFromJson(json);
+  factory _$AssetImageSourceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AssetImageSourceImplFromJson(json);
 
   @override
   final String path;
@@ -141,22 +149,25 @@ class _$AssetImageSource extends AssetImageSource {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AssetImageSource &&
-            const DeepCollectionEquality().equals(other.path, path));
+            other is _$AssetImageSourceImpl &&
+            (identical(other.path, path) || other.path == path));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(path));
+  int get hashCode => Object.hash(runtimeType, path);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ImageSource
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  _$$AssetImageSourceCopyWith<_$AssetImageSource> get copyWith =>
-      __$$AssetImageSourceCopyWithImpl<_$AssetImageSource>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$AssetImageSourceImplCopyWith<_$AssetImageSourceImpl> get copyWith =>
+      __$$AssetImageSourceImplCopyWithImpl<_$AssetImageSourceImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -170,8 +181,8 @@ class _$AssetImageSource extends AssetImageSource {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? asset,
-    TResult Function(String url)? network,
+    TResult? Function(String path)? asset,
+    TResult? Function(String url)? network,
   }) {
     return asset?.call(path);
   }
@@ -201,8 +212,8 @@ class _$AssetImageSource extends AssetImageSource {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AssetImageSource value)? asset,
-    TResult Function(NetworkImageSource value)? network,
+    TResult? Function(AssetImageSource value)? asset,
+    TResult? Function(NetworkImageSource value)? network,
   }) {
     return asset?.call(this);
   }
@@ -222,50 +233,54 @@ class _$AssetImageSource extends AssetImageSource {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AssetImageSourceToJson(
+    return _$$AssetImageSourceImplToJson(
       this,
     );
   }
 }
 
 abstract class AssetImageSource extends ImageSource {
-  const factory AssetImageSource(final String path) = _$AssetImageSource;
+  const factory AssetImageSource(final String path) = _$AssetImageSourceImpl;
   const AssetImageSource._() : super._();
 
   factory AssetImageSource.fromJson(Map<String, dynamic> json) =
-      _$AssetImageSource.fromJson;
+      _$AssetImageSourceImpl.fromJson;
 
   String get path;
-  @JsonKey(ignore: true)
-  _$$AssetImageSourceCopyWith<_$AssetImageSource> get copyWith =>
+
+  /// Create a copy of ImageSource
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AssetImageSourceImplCopyWith<_$AssetImageSourceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$NetworkImageSourceCopyWith<$Res> {
-  factory _$$NetworkImageSourceCopyWith(_$NetworkImageSource value,
-          $Res Function(_$NetworkImageSource) then) =
-      __$$NetworkImageSourceCopyWithImpl<$Res>;
+abstract class _$$NetworkImageSourceImplCopyWith<$Res> {
+  factory _$$NetworkImageSourceImplCopyWith(_$NetworkImageSourceImpl value,
+          $Res Function(_$NetworkImageSourceImpl) then) =
+      __$$NetworkImageSourceImplCopyWithImpl<$Res>;
+  @useResult
   $Res call({String url});
 }
 
 /// @nodoc
-class __$$NetworkImageSourceCopyWithImpl<$Res>
-    extends _$ImageSourceCopyWithImpl<$Res>
-    implements _$$NetworkImageSourceCopyWith<$Res> {
-  __$$NetworkImageSourceCopyWithImpl(
-      _$NetworkImageSource _value, $Res Function(_$NetworkImageSource) _then)
-      : super(_value, (v) => _then(v as _$NetworkImageSource));
+class __$$NetworkImageSourceImplCopyWithImpl<$Res>
+    extends _$ImageSourceCopyWithImpl<$Res, _$NetworkImageSourceImpl>
+    implements _$$NetworkImageSourceImplCopyWith<$Res> {
+  __$$NetworkImageSourceImplCopyWithImpl(_$NetworkImageSourceImpl _value,
+      $Res Function(_$NetworkImageSourceImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$NetworkImageSource get _value => super._value as _$NetworkImageSource;
-
+  /// Create a copy of ImageSource
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? url = freezed,
+    Object? url = null,
   }) {
-    return _then(_$NetworkImageSource(
-      url == freezed
+    return _then(_$NetworkImageSourceImpl(
+      null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
@@ -276,13 +291,13 @@ class __$$NetworkImageSourceCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 @ImageSourceConverter()
-class _$NetworkImageSource extends NetworkImageSource {
-  const _$NetworkImageSource(this.url, {final String? $type})
+class _$NetworkImageSourceImpl extends NetworkImageSource {
+  const _$NetworkImageSourceImpl(this.url, {final String? $type})
       : $type = $type ?? 'network',
         super._();
 
-  factory _$NetworkImageSource.fromJson(Map<String, dynamic> json) =>
-      _$$NetworkImageSourceFromJson(json);
+  factory _$NetworkImageSourceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NetworkImageSourceImplFromJson(json);
 
   @override
   final String url;
@@ -296,22 +311,24 @@ class _$NetworkImageSource extends NetworkImageSource {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NetworkImageSource &&
-            const DeepCollectionEquality().equals(other.url, url));
+            other is _$NetworkImageSourceImpl &&
+            (identical(other.url, url) || other.url == url));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(url));
+  int get hashCode => Object.hash(runtimeType, url);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ImageSource
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  _$$NetworkImageSourceCopyWith<_$NetworkImageSource> get copyWith =>
-      __$$NetworkImageSourceCopyWithImpl<_$NetworkImageSource>(
+  @pragma('vm:prefer-inline')
+  _$$NetworkImageSourceImplCopyWith<_$NetworkImageSourceImpl> get copyWith =>
+      __$$NetworkImageSourceImplCopyWithImpl<_$NetworkImageSourceImpl>(
           this, _$identity);
 
   @override
@@ -326,8 +343,8 @@ class _$NetworkImageSource extends NetworkImageSource {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String path)? asset,
-    TResult Function(String url)? network,
+    TResult? Function(String path)? asset,
+    TResult? Function(String url)? network,
   }) {
     return network?.call(url);
   }
@@ -357,8 +374,8 @@ class _$NetworkImageSource extends NetworkImageSource {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AssetImageSource value)? asset,
-    TResult Function(NetworkImageSource value)? network,
+    TResult? Function(AssetImageSource value)? asset,
+    TResult? Function(NetworkImageSource value)? network,
   }) {
     return network?.call(this);
   }
@@ -378,21 +395,24 @@ class _$NetworkImageSource extends NetworkImageSource {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$NetworkImageSourceToJson(
+    return _$$NetworkImageSourceImplToJson(
       this,
     );
   }
 }
 
 abstract class NetworkImageSource extends ImageSource {
-  const factory NetworkImageSource(final String url) = _$NetworkImageSource;
+  const factory NetworkImageSource(final String url) = _$NetworkImageSourceImpl;
   const NetworkImageSource._() : super._();
 
   factory NetworkImageSource.fromJson(Map<String, dynamic> json) =
-      _$NetworkImageSource.fromJson;
+      _$NetworkImageSourceImpl.fromJson;
 
   String get url;
-  @JsonKey(ignore: true)
-  _$$NetworkImageSourceCopyWith<_$NetworkImageSource> get copyWith =>
+
+  /// Create a copy of ImageSource
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NetworkImageSourceImplCopyWith<_$NetworkImageSourceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

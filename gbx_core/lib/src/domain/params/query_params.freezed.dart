@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'query_params.dart';
 
@@ -12,7 +12,7 @@ part of 'query_params.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 QueryParams _$QueryParamsFromJson(Map<String, dynamic> json) {
   return _QueryParams.fromJson(json);
@@ -23,8 +23,12 @@ mixin _$QueryParams {
   int get limit => throw _privateConstructorUsedError;
   int get offset => throw _privateConstructorUsedError;
 
+  /// Serializes this QueryParams to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of QueryParams
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $QueryParamsCopyWith<QueryParams> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -33,67 +37,75 @@ mixin _$QueryParams {
 abstract class $QueryParamsCopyWith<$Res> {
   factory $QueryParamsCopyWith(
           QueryParams value, $Res Function(QueryParams) then) =
-      _$QueryParamsCopyWithImpl<$Res>;
+      _$QueryParamsCopyWithImpl<$Res, QueryParams>;
+  @useResult
   $Res call({int limit, int offset});
 }
 
 /// @nodoc
-class _$QueryParamsCopyWithImpl<$Res> implements $QueryParamsCopyWith<$Res> {
+class _$QueryParamsCopyWithImpl<$Res, $Val extends QueryParams>
+    implements $QueryParamsCopyWith<$Res> {
   _$QueryParamsCopyWithImpl(this._value, this._then);
 
-  final QueryParams _value;
   // ignore: unused_field
-  final $Res Function(QueryParams) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  /// Create a copy of QueryParams
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? limit = freezed,
-    Object? offset = freezed,
+    Object? limit = null,
+    Object? offset = null,
   }) {
     return _then(_value.copyWith(
-      limit: limit == freezed
+      limit: null == limit
           ? _value.limit
           : limit // ignore: cast_nullable_to_non_nullable
               as int,
-      offset: offset == freezed
+      offset: null == offset
           ? _value.offset
           : offset // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_QueryParamsCopyWith<$Res>
+abstract class _$$QueryParamsImplCopyWith<$Res>
     implements $QueryParamsCopyWith<$Res> {
-  factory _$$_QueryParamsCopyWith(
-          _$_QueryParams value, $Res Function(_$_QueryParams) then) =
-      __$$_QueryParamsCopyWithImpl<$Res>;
+  factory _$$QueryParamsImplCopyWith(
+          _$QueryParamsImpl value, $Res Function(_$QueryParamsImpl) then) =
+      __$$QueryParamsImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int limit, int offset});
 }
 
 /// @nodoc
-class __$$_QueryParamsCopyWithImpl<$Res> extends _$QueryParamsCopyWithImpl<$Res>
-    implements _$$_QueryParamsCopyWith<$Res> {
-  __$$_QueryParamsCopyWithImpl(
-      _$_QueryParams _value, $Res Function(_$_QueryParams) _then)
-      : super(_value, (v) => _then(v as _$_QueryParams));
+class __$$QueryParamsImplCopyWithImpl<$Res>
+    extends _$QueryParamsCopyWithImpl<$Res, _$QueryParamsImpl>
+    implements _$$QueryParamsImplCopyWith<$Res> {
+  __$$QueryParamsImplCopyWithImpl(
+      _$QueryParamsImpl _value, $Res Function(_$QueryParamsImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_QueryParams get _value => super._value as _$_QueryParams;
-
+  /// Create a copy of QueryParams
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? limit = freezed,
-    Object? offset = freezed,
+    Object? limit = null,
+    Object? offset = null,
   }) {
-    return _then(_$_QueryParams(
-      limit: limit == freezed
+    return _then(_$QueryParamsImpl(
+      limit: null == limit
           ? _value.limit
           : limit // ignore: cast_nullable_to_non_nullable
               as int,
-      offset: offset == freezed
+      offset: null == offset
           ? _value.offset
           : offset // ignore: cast_nullable_to_non_nullable
               as int,
@@ -103,11 +115,11 @@ class __$$_QueryParamsCopyWithImpl<$Res> extends _$QueryParamsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_QueryParams implements _QueryParams {
-  const _$_QueryParams({this.limit = 10, this.offset = 0});
+class _$QueryParamsImpl implements _QueryParams {
+  const _$QueryParamsImpl({this.limit = 10, this.offset = 0});
 
-  factory _$_QueryParams.fromJson(Map<String, dynamic> json) =>
-      _$$_QueryParamsFromJson(json);
+  factory _$QueryParamsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$QueryParamsImplFromJson(json);
 
   @override
   @JsonKey()
@@ -122,29 +134,29 @@ class _$_QueryParams implements _QueryParams {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_QueryParams &&
-            const DeepCollectionEquality().equals(other.limit, limit) &&
-            const DeepCollectionEquality().equals(other.offset, offset));
+            other is _$QueryParamsImpl &&
+            (identical(other.limit, limit) || other.limit == limit) &&
+            (identical(other.offset, offset) || other.offset == offset));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(limit),
-      const DeepCollectionEquality().hash(offset));
+  int get hashCode => Object.hash(runtimeType, limit, offset);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of QueryParams
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  _$$_QueryParamsCopyWith<_$_QueryParams> get copyWith =>
-      __$$_QueryParamsCopyWithImpl<_$_QueryParams>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$QueryParamsImplCopyWith<_$QueryParamsImpl> get copyWith =>
+      __$$QueryParamsImplCopyWithImpl<_$QueryParamsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_QueryParamsToJson(
+    return _$$QueryParamsImplToJson(
       this,
     );
   }
@@ -152,17 +164,20 @@ class _$_QueryParams implements _QueryParams {
 
 abstract class _QueryParams implements QueryParams {
   const factory _QueryParams({final int limit, final int offset}) =
-      _$_QueryParams;
+      _$QueryParamsImpl;
 
   factory _QueryParams.fromJson(Map<String, dynamic> json) =
-      _$_QueryParams.fromJson;
+      _$QueryParamsImpl.fromJson;
 
   @override
   int get limit;
   @override
   int get offset;
+
+  /// Create a copy of QueryParams
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_QueryParamsCopyWith<_$_QueryParams> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$QueryParamsImplCopyWith<_$QueryParamsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

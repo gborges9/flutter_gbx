@@ -6,13 +6,13 @@ part of 'query_params.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_QueryParams _$$_QueryParamsFromJson(Map<String, dynamic> json) =>
-    _$_QueryParams(
-      limit: json['limit'] as int? ?? 10,
-      offset: json['offset'] as int? ?? 0,
+_$QueryParamsImpl _$$QueryParamsImplFromJson(Map<String, dynamic> json) =>
+    _$QueryParamsImpl(
+      limit: (json['limit'] as num?)?.toInt() ?? 10,
+      offset: (json['offset'] as num?)?.toInt() ?? 0,
     );
 
-Map<String, dynamic> _$$_QueryParamsToJson(_$_QueryParams instance) =>
+Map<String, dynamic> _$$QueryParamsImplToJson(_$QueryParamsImpl instance) =>
     <String, dynamic>{
       'limit': instance.limit,
       'offset': instance.offset,

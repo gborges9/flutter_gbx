@@ -6,26 +6,29 @@ part of 'image_source.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AssetImageSource _$$AssetImageSourceFromJson(Map<String, dynamic> json) =>
-    _$AssetImageSource(
+_$AssetImageSourceImpl _$$AssetImageSourceImplFromJson(
+        Map<String, dynamic> json) =>
+    _$AssetImageSourceImpl(
       json['path'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$AssetImageSourceToJson(_$AssetImageSource instance) =>
+Map<String, dynamic> _$$AssetImageSourceImplToJson(
+        _$AssetImageSourceImpl instance) =>
     <String, dynamic>{
       'path': instance.path,
       'runtimeType': instance.$type,
     };
 
-_$NetworkImageSource _$$NetworkImageSourceFromJson(Map<String, dynamic> json) =>
-    _$NetworkImageSource(
+_$NetworkImageSourceImpl _$$NetworkImageSourceImplFromJson(
+        Map<String, dynamic> json) =>
+    _$NetworkImageSourceImpl(
       json['url'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$NetworkImageSourceToJson(
-        _$NetworkImageSource instance) =>
+Map<String, dynamic> _$$NetworkImageSourceImplToJson(
+        _$NetworkImageSourceImpl instance) =>
     <String, dynamic>{
       'url': instance.url,
       'runtimeType': instance.$type,
