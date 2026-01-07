@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:talker/talker.dart';
 import 'logger.dart';
 
@@ -11,8 +10,10 @@ class TalkerLoggerImpl extends ILogger {
 
   TalkerLoggerImpl([List<TalkerObserver> observers = const []]) {
     _logger = TalkerLogger();
-    _talker =
-        Talker(logger: _logger, observers: observers, loggerOutput: debugPrint);
+    _talker = Talker(
+      logger: _logger,
+      observer: _MultiObserver(observers),
+    );
   }
 
   @override
@@ -51,5 +52,35 @@ class TalkerLoggerImpl extends ILogger {
       msg = "[$type] $msg";
     }
     return msg;
+  }
+}
+
+class _MultiObserver extends TalkerObserver {
+  final List<TalkerObserver> observers;
+
+  const _MultiObserver(this.observers);
+
+  @override
+  void onLog(TalkerData log) {
+    for (final observer in observers) {
+      observer.onLog(log);
+    }
+    super.onLog(log);
+  }
+
+  @override
+  void onError(TalkerError err) {
+    for (final observer in observers) {
+      observer.onError(err);
+    }
+    super.onError(err);
+  }
+
+  @override
+  void onException(TalkerException err) {
+    for (final observer in observers) {
+      observer.onException(err);
+    }
+    super.onException(err);
   }
 }

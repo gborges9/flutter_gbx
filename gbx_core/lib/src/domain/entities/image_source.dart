@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:gbx_core/src/core/exceptions/exception.dart';
 import 'package:gbx_core/src/domain/entities/image_source_type.dart';
 
 part 'image_source.freezed.dart';
@@ -49,7 +48,7 @@ class ImageSourceConverter
         return NetworkImageSource(json['url']);
 
       default:
-        throw const ParsingException();
+        throw Exception("Parsing failed");
     }
   }
 

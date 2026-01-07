@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:gbx_core/src/domain/repository/types.dart';
-
-import '../../core/exceptions/failures.dart';
+import 'package:gbx_core/src/core/exceptions/failures.dart';
 
 class Repository {
   final Map<Type, Failure Function(dynamic exception, StackTrace stackTrace)>

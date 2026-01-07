@@ -1,4 +1,4 @@
-library gbx_core;
+library;
 
 export 'package:gbx_core/src/core/index.dart';
 export 'package:gbx_core/src/domain/index.dart';
